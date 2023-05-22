@@ -84,7 +84,7 @@ This project is not yet deployed, but you can try it in your local. Follow the i
 
 1. Clone the repository
    ```sh
-   git clone https://github.com/EmanuelAmico/staffys-delivery-client
+   git clone https://github.com/EmanuelAmico/staffys-backoffice-client.git
    ```
 2. Builds the docker image
    ```sh

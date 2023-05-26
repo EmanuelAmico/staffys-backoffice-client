@@ -6,8 +6,12 @@ services:
       dockerfile: Dockerfile
     image: staffys_backoffice_client
     volumes:
-      - .:/app
-    container_name: staffys_backoffice_client_local
+      - ./src:/app/src
+      - ./public:/app/public
+      - ./next.config.js:/app/next.config.js
+      - ./postcss.config.js:/app/postcss.config.js
+      - ./tailwind.config.ts:/app/tailwind.config.ts
+    container_name: staffys_delivery_client_local
     ports:
       - 3001:3001
     tty: true

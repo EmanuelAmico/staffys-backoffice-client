@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React, { FC } from "react";
 
 interface ProfileInfoProps {
   profileImg: string;
@@ -8,12 +8,12 @@ interface ProfileInfoProps {
   module: string;
 }
 
-const ProfileInfo = ({
+const ProfileInfo: FC<ProfileInfoProps> = ({
   profileImg,
   className,
   name,
   module,
-}: ProfileInfoProps) => {
+}) => {
   return (
     <div className={`flex items-center gap-4 ${className || ""}`}>
       <Image

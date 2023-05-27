@@ -1,6 +1,6 @@
 import React, { ComponentPropsWithoutRef, FC, CSSProperties } from "react";
 
-interface IinputText extends ComponentPropsWithoutRef<"input"> {
+interface TextInput extends ComponentPropsWithoutRef<"input"> {
   name: string;
   id?: string;
   label?: string;
@@ -11,7 +11,7 @@ interface IinputText extends ComponentPropsWithoutRef<"input"> {
   helper?: string;
 }
 
-const InputText: FC<IinputText> = ({
+const TextInput: FC<TextInput> = ({
   label,
   name,
   id,
@@ -57,4 +57,4 @@ const InputText: FC<IinputText> = ({
   );
 };
 
-export default InputText;
+export default TextInput;

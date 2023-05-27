@@ -33,6 +33,3 @@ const SwitchButton: React.FC<ISwitchButton> = ({ isSwitched, onClick }) => {
 };
 
 export default SwitchButton;
-
-//#90CAF9
-//#2196F3

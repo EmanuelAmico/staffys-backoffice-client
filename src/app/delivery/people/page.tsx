@@ -12,7 +12,13 @@ const DeliveryPeople: FC = () => {
         className="self-start"
       />
       <Card title="Repartidores" className="grow">
-        <p>Repartidores</p>
+        <div className="mt-5">
+          <div>PackageTransporterCard</div>
+          <div>PackageTransporterCard</div>
+          <div>PackageTransporterCard</div>
+          <div>PackageTransporterCard</div>
+          <div>PackageTransporterCard</div>
+        </div>
       </Card>
     </Layout>
   );

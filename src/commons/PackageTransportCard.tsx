@@ -21,15 +21,18 @@ const PackageTransportCard: FC<PackageTransportCardProps> = ({
       <div>{percentage}</div>
       <div className="flex flex-col gap-1 ml-2">
         <p className="font-bold text-base">{transporterName}</p>
-        <p className="font-medium text-sm text-primaryBlue">{status}</p>
+        <p className="font-medium text-sm text-primaryBlue flex items-center">
+          <span className="mr-1 h-2 w-2 rounded-full bg-primaryBlue"></span>{" "}
+          {status}
+        </p>
       </div>
-      <div className="flex items-center justify-center  bg-red-300 w-[40px] ml-4">
+      <div className="flex items-center justify-center  w-[44px] ml-4">
         <Image
           src={profileImage}
-          width={100}
-          height={100}
+          width={54}
+          height={54}
           alt="Profile"
-          className="w-[35px] rounded-full"
+          className="w-[40px] rounded-full"
         ></Image>
       </div>
     </div>

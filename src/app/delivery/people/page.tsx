@@ -16,8 +16,6 @@ const DeliveryPeople: FC = () => {
           <div>PackageTransporterCard</div>
           <div>PackageTransporterCard</div>
           <div>PackageTransporterCard</div>
-          <div>PackageTransporterCard</div>
-          <div>PackageTransporterCard</div>
         </div>
       </Card>
     </Layout>

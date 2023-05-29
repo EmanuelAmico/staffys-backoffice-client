@@ -50,7 +50,7 @@ const PackageTransportCard: FC<PackageTransportCardProps> = ({
       <div className="flex flex-col gap-2 ml-2 grow">
         <p className="font-bold text-base">{transporterName}</p>
         <p className={`font-medium text-sm ${textColor} flex items-center`}>
-          <span className={`mr-1 h-2 w-2 rounded-full ${backgroundColor}`} />{" "}
+          <span className={`mr-1 h-2 w-2 rounded-full ${backgroundColor}`} />
           {statusText}
         </p>
       </div>

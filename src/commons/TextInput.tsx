@@ -9,6 +9,7 @@ interface TextInput extends ComponentPropsWithoutRef<"input"> {
   error?: string;
   hidden?: boolean;
   helper?: string;
+  classNameContainer?: string;
 }
 
 const TextInput: FC<TextInput> = ({
@@ -20,10 +21,11 @@ const TextInput: FC<TextInput> = ({
   helper,
   disabled,
   type,
+  classNameContainer,
   ...inputProps
 }) => {
   return (
-    <div className={" w-full h-[4.5rem] relative "}>
+    <div className={` w-full h-[4.5rem] relative ${classNameContainer}`}>
       <div>
         <label
           htmlFor={name}

@@ -2,6 +2,7 @@ import type { Config } from "tailwindcss";
 
 export default {
   content: [
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/commons/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -18,6 +19,7 @@ export default {
         salmonText: "#FF6B6B",
         greyText: "#4F4F4F",
         greenText: "#96DB76",
+        redText: "#DC2626",
         pageBackground: "#F5F5F5",
         grayBackground: "#E0E0E0",
         whiteBackground: "#FFFFFF",

@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import Image from "next/image";
 import Layout from "@/commons/Layout";
 import Button from "@/commons/Button";
-import Link from "@/commons/Link";
 import TextInput from "@/commons/TextInput";
 import logoFastDelivery from "../../../public/images/logoFastDelivery.png";
 
@@ -31,14 +30,6 @@ const Login: FC = () => {
         />
         <Button className="w-[100%] font-medium mt-5">Ingresar</Button>
       </form>
-      <div className="flex flex-col items-center gap-4">
-        <Link href="/forgot-password" className="text-lg font-medium">
-          Recuperar Contraseña
-        </Link>
-        <Link href="/register" className="text-lg font-bold">
-          Registrarse
-        </Link>
-      </div>
     </Layout>
   );
 };

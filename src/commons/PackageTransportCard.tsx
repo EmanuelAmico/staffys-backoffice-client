@@ -2,13 +2,11 @@ import React, { FC } from "react";
 import Image from "next/image";
 import PercentageCircle from "./PercentageCircle";
 
-type ImageFormat = "png" | "svg" | "jpg";
-
 interface PackageTransportCardProps {
   percentage: number;
   status: "in-progress" | "all-delivered" | "inactive";
   transporterName: string;
-  profileImage: ImageFormat | string;
+  profileImage: string;
   className?: string;
 }
 

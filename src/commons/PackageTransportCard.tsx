@@ -1,10 +1,11 @@
 import React, { FC } from "react";
 import Image from "next/image";
+import PercentageCircle from "./PercentageCircle";
 
 type ImageFormat = "png" | "svg" | "jpg";
 
 interface PackageTransportCardProps {
-  percentage: `${number}%`;
+  percentage: number;
   status: string;
   transporterName: string;
   profileImage: ImageFormat | string;
@@ -18,7 +19,7 @@ const PackageTransportCard: FC<PackageTransportCardProps> = ({
 }) => {
   return (
     <div className="flex gap-4">
-      <div>{percentage}</div>
+      <PercentageCircle percentage={percentage} />
       <div className="flex flex-col gap-1 ml-2">
         <p className="font-bold text-base">{transporterName}</p>
         <p className="font-medium text-sm text-primaryBlue flex items-center">

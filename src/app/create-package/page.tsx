@@ -9,20 +9,22 @@ import { useRouter } from "next/navigation";
 
 function Page() {
   const router = useRouter();
-
   const [counter, setCounter] = useState(0);
+
   const handleSum = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setCounter(counter + 1);
   };
+
   const handleMinus = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (counter > 0) {
       setCounter(counter - 1);
     }
   };
+
   return (
-    <Layout className="flex flex-col  items-center">
+    <Layout className="flex flex-col items-center">
       <div className="w-full">
         <IconButton
           onClick={() => router.back()}
@@ -32,21 +34,16 @@ function Page() {
       <div className="w-full mt-[3rem]">
         <h1 className="text-2xl font-bold">Agregar paquetes</h1>
       </div>
-      <form action="" className="mt-10 w-full">
-        <TextInput name="direccion" label="Dirección" />
+      <form action="" className="flex flex-col gap-2 mt-10 w-full">
+        <TextInput name="address" label="Dirección" />
+        <TextInput name="addressee" label="Nombre de quien recibe" />
+        <TextInput name="peso" label="Peso (Kg)" />
         <TextInput
-          name="nombre de quien recibe"
-          label="Nombre de quien recibe"
-          classNameContainer="mt-5"
-        />
-        <TextInput name="peso" label="Peso (Kg)" classNameContainer="mt-5" />
-        <TextInput
-          name="fecha en la que debe ser repartido"
+          name="deliveryDate"
           label="Fecha en la que debe ser repartido"
-          classNameContainer="mt-5"
         />
-        <div className="w-[5rem] mt-5">
-          <p className=" mb-1   text-xs text-yellowText font-medium border-0">
+        <div className="w-[5rem]">
+          <p className=" mb-1 text-xs text-yellowText font-medium border-0">
             Cantidad
           </p>
           <div className="flex justify-center items-center">
@@ -65,7 +62,7 @@ function Page() {
             </button>
           </div>
         </div>
-        <Button className="mt-5 w-full">agregar</Button>
+        <Button className="mt-5 w-full">Agregar</Button>
       </form>
     </Layout>
   );

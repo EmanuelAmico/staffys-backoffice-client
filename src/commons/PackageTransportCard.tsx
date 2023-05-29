@@ -33,7 +33,7 @@ const PackageTransportCard: FC<PackageTransportCardProps> = ({
           height={54}
           alt="Profile"
           className="w-[40px] rounded-full"
-        ></Image>
+        />
       </div>
     </div>
   );

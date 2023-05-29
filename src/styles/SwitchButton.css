@@ -1,0 +1,84 @@
+.button {
+  height: 5rem;
+  width: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.rail {
+  background-color: #90caf9;
+  width: 3rem;
+  height: 1.1rem;
+  border-radius: 0.5rem;
+}
+
+.circle {
+  background-color: #2196f3;
+  width: 1.6rem;
+  height: 1.6rem;
+  position: absolute;
+  border-radius: 50%;
+  left: 0;
+}
+
+.rail-animation-active {
+  animation: rail-grey-to-blue 0.5s forwards;
+}
+
+.rail-animation-disable {
+  animation: rail-blue-to-grey 0.5s forwards;
+}
+
+.circle-animation-active {
+  animation: circle-grey-to-blue 0.5s forwards;
+}
+
+.circle-animation-disable {
+  animation: circle-blue-to-grey 0.5s forwards;
+}
+
+@keyframes rail-grey-to-blue {
+  from {
+    background-color: #cacaca;
+  }
+
+  to {
+    background-color: #90caf9;
+  }
+}
+
+@keyframes rail-blue-to-grey {
+  from {
+    background-color: #90caf9;
+  }
+
+  to {
+    background-color: #cacaca;
+  }
+}
+
+@keyframes circle-grey-to-blue {
+  from {
+    background-color: #838383;
+    transform: translateX(-10%);
+  }
+
+  to {
+    background-color: #2196f3;
+    transform: translateX(100%);
+  }
+}
+
+@keyframes circle-blue-to-grey {
+  from {
+    background-color: #2196f3;
+    transform: translateX(100%);
+  }
+
+  to {
+    background-color: #838383;
+    transform: translateX(-10%);
+  }
+}

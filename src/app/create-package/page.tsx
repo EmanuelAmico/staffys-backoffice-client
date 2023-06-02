@@ -13,13 +13,13 @@ function Page() {
 
   const handleSum = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    setCounter(counter + 1);
+    setCounter((counter) => counter + 1);
   };
 
   const handleMinus = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (counter > 0) {
-      setCounter(counter - 1);
+      setCounter((counter) => counter - 1);
     }
   };
 

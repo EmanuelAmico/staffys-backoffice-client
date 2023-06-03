@@ -1,23 +1,17 @@
-import React, { FC } from "react";
+import React, { ComponentPropsWithoutRef, FC } from "react";
 
-interface DateBulletItemProps {
+interface DateBulletItemProps extends ComponentPropsWithoutRef<"button"> {
   selected?: boolean;
   day: number;
   weekDay: string;
-  className?: string;
-  onClick?: () => void;
-  onBlur?: () => void;
-  onFocus?: () => void;
 }
 
 const DateBulletItem: FC<DateBulletItemProps> = ({
   selected,
   day,
   weekDay,
-  onClick,
-  onBlur,
-  onFocus,
   className,
+  ...buttonProps
 }) => {
   return (
     <button
@@ -26,9 +20,7 @@ const DateBulletItem: FC<DateBulletItemProps> = ({
       } inline-flex flex-col justify-center items-center ${
         selected ? "bg-yellowBackground" : "bg-primaryBlue"
       } rounded-full transition-all  ${className || ""}`}
-      onClick={onClick}
-      onBlur={onBlur}
-      onFocus={onFocus}
+      {...buttonProps}
     >
       <span className="text-whiteText text-2xl font-bold">{day}</span>
       <span

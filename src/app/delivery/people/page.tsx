@@ -1,13 +1,13 @@
 import IconButton from "@/commons/IconButton";
 import Layout from "@/commons/Layout";
 import { RiArrowLeftSLine } from "react-icons/ri";
-import React, { FC } from "react";
+import React from "react";
 import Card from "@/commons/Card";
 import PackageTransportCard from "@/commons/PackageTransportCard";
 
-const DeliveryPeople: FC = () => {
+const DeliveryPeople = () => {
   return (
-    <Layout className="flex flex-col gap-4">
+    <Layout className="gap-4">
       <IconButton
         icon={<RiArrowLeftSLine size={40} />}
         className="self-start"

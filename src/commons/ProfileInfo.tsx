@@ -21,7 +21,7 @@ const ProfileInfo: FC<ProfileInfoProps> = ({
         src={profileImg}
         width={54}
         height={54}
-        className={`rounded-full ${className}`}
+        className="rounded-full"
       />
       <div>
         <p className="text-md">Hola {name}!</p>

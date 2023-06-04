@@ -6,7 +6,7 @@ const initialState = false;
 export const changeValue = createAction("CHANGE_VALUE");
 
 const reducer = createReducer(initialState, {
-  [changeValue.type]: (state, action) => action.payload,
+  [changeValue.type]: (_state, action) => action.payload,
 });
 
 export default reducer;

@@ -26,6 +26,7 @@ export default {
         yellowBackground: "#FCBC11",
         disableButton: "#9CA3AF",
         shadowGray: "#6B7280",
+        greyBorder: "#B2BCCA",
         redIcon: "#FA0206",
         hoverRedIcon: "#B91C1C",
       } as const,

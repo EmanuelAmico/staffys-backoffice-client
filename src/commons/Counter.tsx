@@ -1,21 +1,38 @@
-import React, { FC } from "react";
+import React, { MouseEvent, useState } from "react";
 
-interface CounterProps {
-  title: string;
-  count: number;
-}
+const Counter = () => {
+  const [counter, setCounter] = useState(0);
 
-const Counter: FC<CounterProps> = ({ title, count }) => {
+  const handleSum = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setCounter((counter) => counter + 1);
+  };
+
+  const handleMinus = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (counter > 0) {
+      setCounter((counter) => counter - 1);
+    }
+  };
+
   return (
-    <div>
-      <p className="mb-1 text-center font-bold">{title}</p>
-      <p
-        className={`text-center font-bold ${
-          count <= 0 ? "text-redText" : "text-greenText"
-        }`}
-      >
-        {count}
-      </p>
+    <div className="w-[5rem]">
+      <p className="mb-1 text-xs text-yellowText">Cantidad</p>
+      <div className="flex items-center">
+        <button
+          onClick={handleMinus}
+          className="w-[3rem] h-[1.7rem] border border-greyBorder rounded-sm flex justify-center items-center"
+        >
+          -
+        </button>
+        <p className="w-[3rem]  text-center ">{counter}</p>
+        <button
+          onClick={handleSum}
+          className="w-[3rem] h-[1.7rem] border border-greyBorder rounded-sm flex justify-center items-center"
+        >
+          +
+        </button>
+      </div>
     </div>
   );
 };

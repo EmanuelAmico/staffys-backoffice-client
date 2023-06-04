@@ -1,5 +1,5 @@
 import Button, { ButtonProps } from "../commons/Button";
-import React from "react";
+import React, { FC } from "react";
 import Image from "next/image";
 import PercentageCircle from "@/commons/PercentageCircle";
 import Layout from "@/commons/Layout";
@@ -13,7 +13,7 @@ export interface DetailCardProps {
   className?: string;
 }
 
-const DetailCard: React.FC<DetailCardProps> = ({
+const DetailCard: FC<DetailCardProps> = ({
   percentage,
   title,
   description,

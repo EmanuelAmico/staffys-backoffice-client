@@ -8,7 +8,7 @@ import { RiArrowLeftSLine } from "react-icons/ri";
 import { useRouter } from "next/navigation";
 import Counter from "@/commons/Counter";
 
-const Page = () => {
+const CreatePackage = () => {
   const { back } = useRouter();
 
   return (
@@ -34,4 +34,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default CreatePackage;

@@ -8,7 +8,7 @@ import DeliveryPackageCard from "@/commons/DeliveryPackageCard";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { deliveryPackageData } from "@/utils/FakeDataPackage";
 
-function Page() {
+const ManagePackages = () => {
   const { back, push } = useRouter();
 
   return (
@@ -37,6 +37,6 @@ function Page() {
       />
     </Layout>
   );
-}
+};
 
-export default Page;
+export default ManagePackages;

@@ -1,11 +1,16 @@
 "use client";
-import React, { ComponentPropsWithoutRef, useEffect, useState } from "react";
+import React, {
+  ComponentPropsWithoutRef,
+  FC,
+  useEffect,
+  useState,
+} from "react";
 import "../styles/SwitchButton.css";
 
 export interface SwitchButtonProps extends ComponentPropsWithoutRef<"button"> {
   isSwitched: boolean;
 }
-const SwitchButton: React.FC<SwitchButtonProps> = ({
+const SwitchButton: FC<SwitchButtonProps> = ({
   isSwitched,
   onClick,
   ...buttonProps

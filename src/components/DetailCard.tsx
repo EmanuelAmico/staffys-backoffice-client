@@ -3,7 +3,6 @@ import Button, { ButtonProps } from "../commons/Button";
 import React, { FC } from "react";
 import Image from "next/image";
 import PercentageCircle from "@/commons/PercentageCircle";
-
 import { useRouter } from "next/navigation";
 
 export interface DetailCardProps {

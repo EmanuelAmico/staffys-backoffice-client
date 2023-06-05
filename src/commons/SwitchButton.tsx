@@ -1,16 +1,22 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, {
+  ComponentPropsWithoutRef,
+  FC,
+  useEffect,
+  useState,
+} from "react";
 import "../styles/SwitchButton.css";
 
-export interface ISwitchButton {
+export interface SwitchButtonProps extends ComponentPropsWithoutRef<"button"> {
   isSwitched: boolean;
-  onClick: () => void;
 }
-const SwitchButton: React.FC<ISwitchButton> = ({ isSwitched, onClick }) => {
-  const [railAnimation, setRailAnimation] = useState<string>(
-    "rail-animation-disable"
-  );
-  const [circleAnimation, setCirlceAnimation] = useState<string>(
+const SwitchButton: FC<SwitchButtonProps> = ({
+  isSwitched,
+  onClick,
+  ...buttonProps
+}) => {
+  const [railAnimation, setRailAnimation] = useState("rail-animation-disable");
+  const [circleAnimation, setCirlceAnimation] = useState(
     "circle-animation-disable"
   );
 
@@ -25,7 +31,7 @@ const SwitchButton: React.FC<ISwitchButton> = ({ isSwitched, onClick }) => {
   }, [isSwitched]);
 
   return (
-    <button onClick={onClick} className="button">
+    <button onClick={onClick} className="button" {...buttonProps}>
       <div className={`rail ${railAnimation}`}></div>
       <div className={`circle ${circleAnimation}`}></div>
     </button>

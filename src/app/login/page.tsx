@@ -1,22 +1,22 @@
-import React, { FC } from "react";
-import Image from "next/image";
+import React from "react";
 import Layout from "@/commons/Layout";
 import Button from "@/commons/Button";
 import TextInput from "@/commons/TextInput";
-import logoFastDelivery from "../../../public/images/logoFastDelivery.png";
+import Image from "next/image";
+//import logoFastDelivery from "../../../public/images/logoFastDelivery.png";
 
-const Login: FC = () => {
+const Login = () => {
   return (
     <Layout className="h-screen">
       <div className="flex justify-center items-end h-[30%]">
         <Image
-          src={logoFastDelivery}
+          src={"/images/logoFastDelivery.png"}
           alt="Logo Fast Delivery"
           width="200"
           priority
         />
       </div>
-      <form className="pt-16 pb-5">
+      <form autoComplete="off" className="pt-16 pb-5">
         <TextInput
           label="Usuario"
           name="email"

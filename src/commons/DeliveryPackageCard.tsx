@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import Button, { ButtonProps } from "./Button";
 import IconButton, { IconButtonProps } from "./IconButton";
 import Image from "next/image";
-//import imgpackage from "../../public/svg/package.svg";
 import { BsFillTrash3Fill } from "react-icons/bs";
 
 interface DeliveryPackageCardProps {

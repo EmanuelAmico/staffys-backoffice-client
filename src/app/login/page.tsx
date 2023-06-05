@@ -12,6 +12,7 @@ const Login = () => {
           src={"/images/logoFastDelivery.png"}
           alt="Logo Fast Delivery"
           width="200"
+          height="200"
           priority
         />
       </div>

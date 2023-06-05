@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import Button, { ButtonProps } from "./Button";
 import IconButton, { IconButtonProps } from "./IconButton";
 import Image from "next/image";
-import imgpackage from "../../public/svg/package.svg";
 import { BsFillTrash3Fill } from "react-icons/bs";
 
 interface DeliveryPackageCardProps {
@@ -40,7 +39,12 @@ const DeliveryPackageCard: FC<DeliveryPackageCardProps> = ({
     >
       <div className="flex items-center gap-3 p-3">
         <div className="flex items-center justify-center bg-grayBackground h-24 w-24 rounded-lg">
-          <Image src={imgpackage} alt="package" />
+          <Image
+            src={"/svg/package.svg"}
+            alt="package"
+            height="65"
+            width="65"
+          />
         </div>
         <div className="flex flex-col gap-[0.20rem] w-[65%]">
           <div className="flex gap-9 justify-between">

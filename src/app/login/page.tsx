@@ -3,16 +3,16 @@ import Layout from "@/commons/Layout";
 import Button from "@/commons/Button";
 import TextInput from "@/commons/TextInput";
 import Image from "next/image";
-import logoFastDelivery from "../../../public/images/logoFastDelivery.png";
 
 const Login = () => {
   return (
     <Layout className="h-screen">
       <div className="flex justify-center items-end h-[30%]">
         <Image
-          src={logoFastDelivery}
+          src={"/images/logoFastDelivery.png"}
           alt="Logo Fast Delivery"
           width="200"
+          height="200"
           priority
         />
       </div>

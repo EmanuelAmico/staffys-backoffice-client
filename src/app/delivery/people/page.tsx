@@ -1,3 +1,4 @@
+"use client";
 import IconButton from "@/commons/IconButton";
 import Layout from "@/commons/Layout";
 import { RiArrowLeftSLine } from "react-icons/ri";

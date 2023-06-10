@@ -28,7 +28,6 @@ export default function RootLayout({
       </head>
       <Provider store={store}>
         <body>
-          {" "}
           <SkeletonTheme>
             <CheckRefreshProvider>{children} </CheckRefreshProvider>
           </SkeletonTheme>

@@ -28,9 +28,11 @@ export default function RootLayout({
       </head>
       <Provider store={store}>
         <SkeletonTheme>
-          <body>
-            <CheckRefreshProvider>{children} </CheckRefreshProvider>
-          </body>
+          <CheckRefreshProvider>
+            <body>
+              {children} 
+            </body>
+          </CheckRefreshProvider>
         </SkeletonTheme>
       </Provider>
     </html>

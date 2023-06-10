@@ -1,20 +1,24 @@
 "use client";
 import IconButton from "@/commons/IconButton";
 import Layout from "@/commons/Layout";
-import React from "react";
+import React, { useContext } from "react";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { useRouter } from "next/navigation";
 import DeliveryPackageCard from "@/commons/DeliveryPackageCard";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { deliveryPackageData } from "@/utils/FakeDataPackage";
+import { CheckRefreshContext } from "@/context/refresh";
 
 const ManagePackages = () => {
-  const { back, push } = useRouter();
+  const { push } = useRouter();
+  const router = useRouter();
+  const { changeRefresh } = useContext(CheckRefreshContext);
+  const { isRefreshed } = useContext(CheckRefreshContext);
 
   return (
     <Layout>
       <IconButton
-        onClick={() => back()}
+        onClick={() => (isRefreshed ? router.push("/home") : router.back())}
         icon={<RiArrowLeftSLine size={40} />}
         className="self-start"
       />
@@ -31,7 +35,10 @@ const ManagePackages = () => {
         ))}
       </div>
       <IconButton
-        onClick={() => push("/create-package")}
+        onClick={() => {
+          changeRefresh();
+          push("/create-package");
+        }}
         className="self-end"
         icon={<AiFillPlusCircle size={55} className="fill-primaryBlue" />}
       />

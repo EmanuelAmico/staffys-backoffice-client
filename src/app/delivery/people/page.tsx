@@ -1,14 +1,20 @@
 import IconButton from "@/commons/IconButton";
 import Layout from "@/commons/Layout";
 import { RiArrowLeftSLine } from "react-icons/ri";
-import React from "react";
+import React, { useContext } from "react";
+import { useRouter } from "next/navigation";
 import Card from "@/commons/Card";
 import PackageTransportCard from "@/commons/PackageTransportCard";
+import { CheckRefreshContext } from "@/context/refresh";
 
 const DeliveryPeople = () => {
+  const router = useRouter();
+  const { isRefreshed } = useContext(CheckRefreshContext);
+
   return (
     <Layout className="gap-4">
       <IconButton
+        onClick={() => (isRefreshed ? router.push("/home") : router.back())}
         icon={<RiArrowLeftSLine size={40} />}
         className="self-start"
       />

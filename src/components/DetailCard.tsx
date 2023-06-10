@@ -1,9 +1,10 @@
 "use client";
 import Button, { ButtonProps } from "../commons/Button";
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import Image from "next/image";
 import PercentageCircle from "@/commons/PercentageCircle";
 import { useRouter } from "next/navigation";
+import { CheckRefreshContext } from "@/context/refresh";
 
 export interface DetailCardProps {
   percentage: number;
@@ -27,6 +28,7 @@ const DetailCard: FC<DetailCardProps> = ({
   pathButton,
 }) => {
   const { push } = useRouter();
+  const { changeRefresh } = useContext(CheckRefreshContext);
   return (
     <div className={`flex flex-col gap-4  ${className || ""}`}>
       <div className="flex justify-between items-center p-1">
@@ -54,7 +56,10 @@ const DetailCard: FC<DetailCardProps> = ({
       </div>
       <Button
         className="py-[0.20rem]"
-        onClick={() => push(pathButton)}
+        onClick={() => {
+          changeRefresh();
+          push(pathButton);
+        }}
         {...buttonProps}
       >
         {buttonText}

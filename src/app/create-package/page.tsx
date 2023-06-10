@@ -3,18 +3,20 @@ import Button from "@/commons/Button";
 import IconButton from "@/commons/IconButton";
 import Layout from "@/commons/Layout";
 import TextInput from "@/commons/TextInput";
-import React from "react";
+import React, { useContext } from "react";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { useRouter } from "next/navigation";
 import Counter from "@/commons/Counter";
+import { CheckRefreshContext } from "@/context/refresh";
 
 const CreatePackage = () => {
-  const { back } = useRouter();
+  const router = useRouter();
+  const { isRefreshed } = useContext(CheckRefreshContext);
 
   return (
     <Layout>
       <IconButton
-        onClick={() => back()}
+        onClick={() => (isRefreshed ? router.push("/home") : router.back())}
         icon={<RiArrowLeftSLine size={40} />}
         className="self-start"
       />

@@ -15,7 +15,7 @@ const Home = () => {
       />
 
       <DatePicker />
-      <div className="flex flex-col mt-5 gap-4">
+      <div className="flex flex-col mt-2 gap-3">
         <h3 className="font-bold ">15/02/23 - Detalles</h3>{" "}
         <DetailCard
           percentage={20}
@@ -26,7 +26,6 @@ const Home = () => {
             "/svg/lucianaProfilePicture.svg",
           ]}
           buttonText="Ver Repartidores"
-          className="bg-whiteBackground"
           pathButton="/delivery/people"
         />
         <DetailCard
@@ -34,7 +33,6 @@ const Home = () => {
           title="Paquetes"
           description="16/20 repartidos"
           buttonText="Ver Paquetes"
-          className="bg-whiteBackground h-2/4 "
           pathButton="/manage-packages"
         />
       </div>

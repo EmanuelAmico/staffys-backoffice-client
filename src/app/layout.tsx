@@ -29,7 +29,7 @@ export default function RootLayout({
       <Provider store={store}>
         <SkeletonTheme>
           <CheckRefreshProvider>
-            <body>{children} </body>
+            <body>{children}</body>
           </CheckRefreshProvider>
         </SkeletonTheme>
       </Provider>

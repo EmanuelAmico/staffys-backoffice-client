@@ -1,21 +1,23 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
+import { useRouter } from "next/navigation";
 import DeliveryCollapsibleBox from "@/components/DeliveryCollapsibleBox";
 import Layout from "@/commons/Layout";
 import { deliveryHistory } from "@/utils/FakeDataDeliveryHistory";
 import { deliveryPending } from "@/utils/FakeDataDeliveryPending";
-import { useRouter } from "next/navigation";
 import IconButton from "@/commons/IconButton";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import DeliveryManProfile from "@/commons/DeliveryManProfile";
+import { CheckRefreshContext } from "@/context/refresh";
 
 const DetailsDelivery = () => {
-  const { back } = useRouter();
+  const router = useRouter();
+  const { isRefreshed } = useContext(CheckRefreshContext);
 
   return (
     <Layout className="gap-4">
       <IconButton
-        onClick={() => back()}
+        onClick={() => (isRefreshed ? router.push("/home") : router.back())}
         icon={<RiArrowLeftSLine size={40} />}
         className="self-start"
       />

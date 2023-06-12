@@ -30,7 +30,9 @@ const DetailCard: FC<DetailCardProps> = ({
   const { push } = useRouter();
   const { changeRefresh } = useContext(CheckRefreshContext);
   return (
-    <div className={`flex flex-col gap-4  ${className || ""}`}>
+    <div
+      className={`flex flex-col gap-4 shadow-md rounded-md  ${className || ""}`}
+    >
       <div className="flex justify-between items-center p-1">
         <div className="flex gap-4 items-center">
           <PercentageCircle percentage={percentage} />

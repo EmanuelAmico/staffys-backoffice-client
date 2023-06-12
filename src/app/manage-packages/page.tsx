@@ -10,10 +10,8 @@ import { deliveryPackageData } from "@/utils/FakeDataPackage";
 import { CheckRefreshContext } from "@/context/refresh";
 
 const ManagePackages = () => {
-  const { push } = useRouter();
   const router = useRouter();
-  const { changeRefresh } = useContext(CheckRefreshContext);
-  const { isRefreshed } = useContext(CheckRefreshContext);
+  const { changeRefresh, isRefreshed } = useContext(CheckRefreshContext);
 
   return (
     <Layout>
@@ -37,7 +35,7 @@ const ManagePackages = () => {
       <IconButton
         onClick={() => {
           changeRefresh();
-          push("/create-package");
+          router.push("/create-package");
         }}
         className="self-end"
         icon={<AiFillPlusCircle size={55} className="fill-primaryBlue" />}

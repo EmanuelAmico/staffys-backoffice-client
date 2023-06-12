@@ -27,11 +27,11 @@ export default function RootLayout({
         <meta name="description" content={metadata.description} />
       </head>
       <Provider store={store}>
-        <body>
-          <SkeletonTheme>
-            <CheckRefreshProvider>{children} </CheckRefreshProvider>
-          </SkeletonTheme>
-        </body>
+        <SkeletonTheme>
+          <CheckRefreshProvider>
+            <body>{children} </body>
+          </CheckRefreshProvider>
+        </SkeletonTheme>
       </Provider>
     </html>
   );

@@ -3,6 +3,8 @@ import React from "react";
 import "../styles/global.css";
 import store from "../redux/store";
 import { Provider } from "react-redux";
+import { SkeletonTheme } from "react-loading-skeleton";
+import CheckRefreshProvider from "../context/refresh";
 
 const metadata = {
   title: "Staffys Back Office",
@@ -30,7 +32,11 @@ export default function RootLayout({
         ></link>
       </head>
       <Provider store={store}>
-        <body>{children}</body>
+        <CheckRefreshProvider>
+          <SkeletonTheme>
+            <body>{children}</body>
+          </SkeletonTheme>
+        </CheckRefreshProvider>
       </Provider>
     </html>
   );

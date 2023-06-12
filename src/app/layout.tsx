@@ -32,11 +32,11 @@ export default function RootLayout({
         ></link>
       </head>
       <Provider store={store}>
-        <SkeletonTheme>
-          <CheckRefreshProvider>
+        <CheckRefreshProvider>
+          <SkeletonTheme>
             <body>{children}</body>
-          </CheckRefreshProvider>
-        </SkeletonTheme>
+          </SkeletonTheme>
+        </CheckRefreshProvider>
       </Provider>
     </html>
   );

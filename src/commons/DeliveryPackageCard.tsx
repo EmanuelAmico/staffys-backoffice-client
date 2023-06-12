@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import Button, { ButtonProps } from "./Button";
+import { ButtonProps } from "./Button";
 import IconButton, { IconButtonProps } from "./IconButton";
 import Image from "next/image";
 import { BsFillTrash3Fill } from "react-icons/bs";
@@ -22,9 +22,7 @@ const DeliveryPackageCard: FC<DeliveryPackageCardProps> = ({
   addressee,
   distance,
   status,
-  buttonText,
   trash,
-  buttonProps,
   iconProps,
   className,
   onClick,
@@ -80,12 +78,7 @@ const DeliveryPackageCard: FC<DeliveryPackageCardProps> = ({
                 <p className="font-bold ">Entregado</p>
               )
             ) : (
-              <Button
-                className={"text-[0.70rem] py-[0.20rem]"}
-                {...buttonProps}
-              >
-                {buttonText}
-              </Button>
+              ""
             )}
           </div>
         </div>

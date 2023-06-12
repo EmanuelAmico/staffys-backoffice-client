@@ -1,14 +1,19 @@
+"use client";
 import IconButton from "@/commons/IconButton";
 import Layout from "@/commons/Layout";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import React from "react";
 import Card from "@/commons/Card";
 import PackageTransportCard from "@/commons/PackageTransportCard";
+import { useRouter } from "next/navigation";
 
 const DeliveryPeople = () => {
+  const { back } = useRouter();
+
   return (
     <Layout className="gap-4">
       <IconButton
+        onClick={() => back()}
         icon={<RiArrowLeftSLine size={40} />}
         className="self-start"
       />

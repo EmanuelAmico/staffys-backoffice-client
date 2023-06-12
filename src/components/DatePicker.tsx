@@ -36,7 +36,7 @@ const DatePicker: FC<DatePickerProps> = ({ className }) => {
       daysOfCurrentMonth.push({
         day,
         weekDay: weekDays[index],
-        selected: currentDate.slice(9) === `${day} ${year}`,
+        selected: currentDate.slice(8) === `${day} ${year}`,
       });
     }
 
@@ -68,7 +68,7 @@ const DatePicker: FC<DatePickerProps> = ({ className }) => {
         </div>
         <p className="font-light text-sm">{year}</p>
       </div>
-      <div className="h-32 flex items-center overflow-x-scroll gap-2">
+      <div className="h-36 flex items-center overflow-x-scroll gap-2">
         {daysOfCurrentMonth.map(({ day, weekDay, selected }) => (
           <DateBulletItem
             key={day}

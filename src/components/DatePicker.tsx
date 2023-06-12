@@ -1,4 +1,5 @@
-import React, { FC } from "react";
+"use client";
+import React, { FC, useCallback, useState } from "react";
 import DateBulletItem from "@/commons/DateBulletItem";
 import IconButton from "@/commons/IconButton";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
@@ -10,17 +11,49 @@ export interface DatePickerProps {
 
 const DatePicker: FC<DatePickerProps> = ({ className }) => {
   const date = new Date();
-  const month = date.toLocaleString("UTC", { month: "long" });
-  const years = date.getFullYear();
+  const month = date
+    .toLocaleString("es-AR", {
+      month: "long",
+    })
+    .split("")
+    .map((char, index) => (index === 0 ? char.toUpperCase() : char))
+    .join("");
+  const year = date.getFullYear();
   const currentDate = date.toDateString();
-  const daysMonth = new Date(years, date.getMonth() - 1, 0).getDate();
-  const diasSemana = ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sáb"];
-  const dateMonth = [];
+  const monthDays = new Date(year, date.getMonth() - 1, 0).getDate();
+  const weekDays = ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sáb"];
+  const [daysOfCurrentMonth, setDaysOfCurrentMonth] = useState<
+    { day: number; weekDay: string; selected: boolean }[]
+  >(() => {
+    const daysOfCurrentMonth: {
+      day: number;
+      weekDay: string;
+      selected: boolean;
+    }[] = [];
 
-  for (let day = 1; day <= daysMonth; day++) {
-    const indice = new Date(years, date.getMonth(), day).getDay();
-    dateMonth.push({ day, weekDay: diasSemana[indice] });
-  }
+    for (let day = 1; day <= monthDays; day++) {
+      const index = new Date(year, date.getMonth(), day).getDay();
+      daysOfCurrentMonth.push({
+        day,
+        weekDay: weekDays[index],
+        selected: currentDate.slice(9) === `${day} ${year}`,
+      });
+    }
+
+    return daysOfCurrentMonth;
+  });
+
+  const handleClick = useCallback(
+    (clickedDay: number) =>
+      setDaysOfCurrentMonth((daysOfCurrentMonth) =>
+        daysOfCurrentMonth.map(({ day, weekDay }) => ({
+          day,
+          weekDay,
+          selected: day === clickedDay,
+        }))
+      ),
+    []
+  );
 
   return (
     <div className={`${className || ""}`}>
@@ -33,21 +66,18 @@ const DatePicker: FC<DatePickerProps> = ({ className }) => {
             <IconButton icon={<BsCalendarEvent size={22} />} />
           </div>
         </div>
-        <p className="font-light text-sm">{years}</p>
+        <p className="font-light text-sm">{year}</p>
       </div>
-      <div className="flex overflow-x-scroll gap-2">
-        {dateMonth?.map((obj) =>
-          currentDate.slice(9) === `${obj.day} ${years}` ? (
-            <DateBulletItem
-              key={obj.day}
-              day={obj.day}
-              weekDay={obj.weekDay}
-              selected
-            />
-          ) : (
-            <DateBulletItem key={obj.day} day={obj.day} weekDay={obj.weekDay} />
-          )
-        )}
+      <div className="h-32 flex items-center overflow-x-scroll gap-2">
+        {daysOfCurrentMonth.map(({ day, weekDay, selected }) => (
+          <DateBulletItem
+            key={day}
+            day={day}
+            weekDay={weekDay}
+            selected={selected}
+            onClick={handleClick}
+          />
+        ))}
       </div>
     </div>
   );

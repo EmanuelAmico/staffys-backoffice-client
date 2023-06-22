@@ -17,41 +17,50 @@ const PackageTransportCard: FC<PackageTransportCardProps> = ({
   percentage,
   className,
 }) => {
-  const textColor =
-    status === "inactive"
-      ? "text-redIcon"
-      : status === "in-progress"
-      ? "text-primaryBlue"
-      : status === "all-delivered"
-      ? "text-greenText"
-      : "";
+  const handleStatus = (() => {
+    switch (status) {
+      case "inactive":
+        return {
+          textColor: "text-redIcon",
+          backgroundColor: "bg-redIcon",
+          statusText: "Inactivo",
+        };
 
-  const backgroundColor =
-    status === "inactive"
-      ? "bg-redIcon"
-      : status === "in-progress"
-      ? "bg-primaryBlue"
-      : status === "all-delivered"
-      ? "bg-greenText"
-      : "";
+      case "in-progress":
+        return {
+          textColor: "text-primaryBlue",
+          backgroundColor: "bg-primaryBlue",
+          statusText: "Viaje en curso",
+        };
 
-  const statusText =
-    status === "inactive"
-      ? "Inactivo"
-      : status === "in-progress"
-      ? "Viaje en curso"
-      : status === "all-delivered"
-      ? "Finalizó"
-      : "";
+      case "all-delivered":
+        return {
+          textColor: "text-greenText",
+          backgroundColor: "bg-greenText",
+          statusText: "Finalizó",
+        };
+
+      default:
+        return {
+          textColor: "",
+          backgroundColor: "",
+          statusText: "",
+        };
+    }
+  })();
 
   return (
     <div className={`flex items-center gap-4 ${className || ""}`}>
       <PercentageCircle percentage={percentage} />
       <div className="flex flex-col gap-2 ml-2 grow">
         <p className="font-bold text-base">{transporterName}</p>
-        <p className={`font-medium text-sm ${textColor} flex items-center`}>
-          <span className={`mr-1 h-2 w-2 rounded-full ${backgroundColor}`} />
-          {statusText}
+        <p
+          className={`font-medium text-sm ${handleStatus.textColor} flex items-center`}
+        >
+          <span
+            className={`mr-1 h-2 w-2 rounded-full ${handleStatus.backgroundColor}`}
+          />
+          {handleStatus.statusText}
         </p>
       </div>
       <Image

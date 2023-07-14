@@ -4,7 +4,8 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { UserService } from "@/services/user.service";
-import { User } from "@/types/user.types";
+import { AuthService } from "@/services/auth.service";
+import { User, UserLogin } from "@/types/user.types";
 
 const initialState: User = {
   _id: "",
@@ -44,6 +45,16 @@ export const editUserActive = createAsyncThunk(
   }
 );
 
+export const login = createAsyncThunk(
+  "USER/LOGIN",
+  async (userData: UserLogin) => {
+    const response = await AuthService.login(userData);
+    const user = response.data.user;
+    const token = response.data.token;
+    localStorage.setItem("token", token);
+    return { ...user, token };
+  }
+);
 const selectedUserReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(
@@ -54,6 +65,12 @@ const selectedUserReducer = createReducer(initialState, (builder) => {
     )
     .addCase(setSelectedUser.rejected, (state) => {
       return state;
+    })
+    .addCase(login.fulfilled, (state, action: PayloadAction<User>) => {
+      return {
+        ...state,
+        ...action.payload,
+      };
     });
 });
 export default selectedUserReducer;

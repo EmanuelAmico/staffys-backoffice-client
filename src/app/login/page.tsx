@@ -45,6 +45,7 @@ const Login = () => {
       email: email.value,
       password: password.value,
     };
+
     try {
       await dispatch(login(userData)).unwrap();
       push("/home");
@@ -69,11 +70,13 @@ const Login = () => {
           label="Usuario"
           name="email"
           placeholder="staffys@gmail.com"
+          {...email}
         />
         <TextInput
           label="Contraseña"
           name="password"
           placeholder="Contraseña"
+          {...password}
           hidden
         />
         <Button className="w-[100%] font-medium mt-5">Ingresar</Button>

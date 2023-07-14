@@ -1,7 +1,9 @@
 import Image from "next/image";
 import React, { FC, useState } from "react";
 import SwitchButton from "./SwitchButton";
-
+import { editUserActive } from "@/redux/reducers/selectedUser";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
 interface DeliveryManProfileProps {
   transporterName: string;
   profileImage: string;
@@ -14,10 +16,15 @@ const DeliveryManProfile: FC<DeliveryManProfileProps> = ({
   className,
 }) => {
   const [isClick, setIsClick] = useState(true);
+  const dispatch = useDispatch<AppDispatch>();
 
   const textColor = isClick === false ? "text-redIcon" : "text-primaryBlue";
   const backgroundColor = isClick === false ? "bg-redIcon" : "bg-primaryBlue";
   const statusText = isClick === false ? "Inactivo" : "Activo";
+  const handleSwitchClick = () => {
+    dispatch(editUserActive(!isClick)); // Envía el valor booleano opuesto al estado actual
+    setIsClick(!isClick); // Cambia el estado local
+  };
 
   return (
     <div className={`flex items-center gap-4 ${className || ""}`}>
@@ -35,7 +42,7 @@ const DeliveryManProfile: FC<DeliveryManProfileProps> = ({
           {statusText}
         </p>
       </div>
-      <SwitchButton isSwitched={isClick} onClick={() => setIsClick(!isClick)} />
+      <SwitchButton isSwitched={isClick} onClick={handleSwitchClick} />
     </div>
   );
 };

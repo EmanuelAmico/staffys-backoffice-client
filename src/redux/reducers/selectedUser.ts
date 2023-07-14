@@ -30,6 +30,20 @@ export const setSelectedUser = createAsyncThunk(
   }
 );
 
+export const editUserActive = createAsyncThunk(
+  "USER/EDIT",
+  async (is_active: boolean, thunkAPI) => {
+    const { user } = thunkAPI.getState() as { user: User };
+    const userid = {
+      _id: user._id,
+      is_active,
+    };
+
+    const response = await UserService.editUser(userid);
+    return response;
+  }
+);
+
 const selectedUserReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(

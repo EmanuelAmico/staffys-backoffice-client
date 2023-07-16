@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useContext } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { setSelectedUser } from "@/redux/reducers/selectedUser";
+import { setSelectedDeliveryMan } from "@/redux/reducers/selectedDeliveryMan";
 import { AppDispatch } from "@/redux/store";
 import DeliveryCollapsibleBox from "@/components/DeliveryCollapsibleBox";
 import Layout from "@/commons/Layout";
@@ -19,7 +19,7 @@ function DeliveryPeople() {
 
   const getUser = useCallback(async () => {
     try {
-      await dispatch(setSelectedUser(_id)).unwrap();
+      await dispatch(setSelectedDeliveryMan(_id)).unwrap();
     } catch (error) {
       console.error(error);
     }

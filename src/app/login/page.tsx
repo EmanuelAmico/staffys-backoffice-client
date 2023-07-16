@@ -6,7 +6,7 @@ import TextInput from "@/commons/TextInput";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
-import { login } from "@/redux/reducers/selectedUser";
+import { login } from "@/redux/reducers/user";
 import useInput from "@/hooks/useInput";
 import { useRouter } from "next/navigation";
 
@@ -69,12 +69,14 @@ const Login = () => {
           label="Usuario"
           name="email"
           placeholder="staffys@gmail.com"
+          {...email}
         />
         <TextInput
           label="Contraseña"
           name="password"
           placeholder="Contraseña"
           hidden
+          {...password}
         />
         <Button className="w-[100%] font-medium mt-5">Ingresar</Button>
       </form>

@@ -1,4 +1,5 @@
 "use client";
+
 import IconButton from "@/commons/IconButton";
 import Layout from "@/commons/Layout";
 import React, { useContext } from "react";
@@ -35,7 +36,7 @@ const ManagePackages = () => {
       <IconButton
         onClick={() => {
           changeRefresh();
-          router.push("/create-package");
+          router.push("/package/create");
         }}
         className="self-end"
         icon={<AiFillPlusCircle size={55} className="fill-primaryBlue" />}

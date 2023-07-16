@@ -1,12 +1,16 @@
 "use client";
 import { configureStore } from "@reduxjs/toolkit";
-import selectedUserReducer from "./reducers/selectedUser";
+import userReducer from "./reducers/user";
+import deliveryReducer from "./reducers/delivery";
+
 const store = configureStore({
   reducer: {
-    selectedUser: selectedUserReducer,
+    user: userReducer,
+    delivery: deliveryReducer,
   },
 });
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
+
 export default store;

@@ -6,7 +6,7 @@ import TextInput from "@/commons/TextInput";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
-import { login } from "@/redux/reducers/selectedUser";
+import { login } from "@/redux/reducers/user";
 import useInput from "@/hooks/useInput";
 import { useRouter } from "next/navigation";
 

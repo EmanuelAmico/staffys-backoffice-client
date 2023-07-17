@@ -15,10 +15,7 @@ export default function Template({
   const { push } = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const pathname = usePathname();
-  const allowedPathnames = useMemo(
-    () => ["/login", "/register", "/forgot-password"],
-    []
-  );
+  const allowedPathnames = useMemo(() => ["/login"], []);
 
   const checkUserSession = useCallback(async () => {
     try {

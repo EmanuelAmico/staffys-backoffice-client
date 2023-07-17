@@ -35,12 +35,12 @@ export const editUserActive = createAsyncThunk(
   "USER/EDIT",
   async (is_active: boolean, thunkAPI) => {
     const { user } = thunkAPI.getState() as { user: User };
-    const userid = {
+    const userActive = {
       _id: user._id,
       is_active,
     };
 
-    const response = await UserService.editUser(userid);
+    const response = await UserService.editUser(userActive);
     return response;
   }
 );

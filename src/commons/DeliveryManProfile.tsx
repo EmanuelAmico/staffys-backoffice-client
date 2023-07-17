@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { FC, useState } from "react";
 import SwitchButton from "./SwitchButton";
-import { editUserActive } from "@/redux/reducers/selectedUser";
+import { editUserActive } from "@/redux/reducers/user";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 interface DeliveryManProfileProps {
@@ -22,8 +22,8 @@ const DeliveryManProfile: FC<DeliveryManProfileProps> = ({
   const backgroundColor = isClick === false ? "bg-redIcon" : "bg-primaryBlue";
   const statusText = isClick === false ? "Inactivo" : "Activo";
   const handleSwitchClick = () => {
-    dispatch(editUserActive(!isClick)); // Envía el valor booleano opuesto al estado actual
-    setIsClick(!isClick); // Cambia el estado local
+    dispatch(editUserActive(!isClick));
+    setIsClick(!isClick);
   };
 
   return (

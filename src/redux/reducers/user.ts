@@ -30,6 +30,7 @@ export const setSelectedUser = createAsyncThunk(
     return response;
   }
 );
+
 export const login = createAsyncThunk(
   "USER/LOGIN",
   async (userData: UserLogin) => {
@@ -40,7 +41,8 @@ export const login = createAsyncThunk(
     return { ...user, token };
   }
 );
-const selectedUserReducer = createReducer(initialState, (builder) => {
+
+const userReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(
       setSelectedUser.fulfilled,
@@ -48,9 +50,6 @@ const selectedUserReducer = createReducer(initialState, (builder) => {
         return action.payload;
       }
     )
-    .addCase(setSelectedUser.rejected, (state) => {
-      return state;
-    })
     .addCase(login.fulfilled, (state, action: PayloadAction<User>) => {
       return {
         ...state,
@@ -58,4 +57,4 @@ const selectedUserReducer = createReducer(initialState, (builder) => {
       };
     });
 });
-export default selectedUserReducer;
+export default userReducer;

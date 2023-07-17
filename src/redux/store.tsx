@@ -1,12 +1,14 @@
 "use client";
 
 import { configureStore } from "@reduxjs/toolkit";
-import selectedUserReducer from "./reducers/selectedUser";
+import userReducer from "./reducers/user";
+import deliveryReducer from "./reducers/delivery";
 import packageReducer from "./reducers/package";
 
 const store = configureStore({
   reducer: {
-    selectedUser: selectedUserReducer,
+    user: userReducer,
+    delivery: deliveryReducer,
     package: packageReducer,
   },
 });

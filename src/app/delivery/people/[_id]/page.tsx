@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useContext } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { setSelectedUser } from "@/redux/reducers/selectedUser";
+import { setSelectedUser } from "@/redux/reducers/user";
 import { AppDispatch } from "@/redux/store";
 import DeliveryCollapsibleBox from "@/components/DeliveryCollapsibleBox";
 import Layout from "@/commons/Layout";
@@ -53,7 +53,7 @@ function DetailsDeliveryMan() {
         description="Ya repartiste 6 paquetes"
         delivery={false}
         packages={deliveryHistory}
-        pathButton="/delivery-history"
+        pathButton="/delivery/history"
       />
     </Layout>
   );

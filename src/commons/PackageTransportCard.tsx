@@ -4,7 +4,7 @@ import PercentageCircle from "./PercentageCircle";
 
 interface PackageTransportCardProps {
   percentage: number;
-  status: "in-progress" | "all-delivered" | "inactive";
+  status: "in-progress" | "all-delivered" | "inactive" | null;
   transporterName: string;
   profileImage: string;
   className?: string;

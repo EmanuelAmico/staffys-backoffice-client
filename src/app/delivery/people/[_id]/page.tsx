@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useContext } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { setSelectedUser } from "@/redux/reducers/user";
+import { setSelectedDeliveryMan } from "@/redux/reducers/selectedDeliveryMan";
 import { AppDispatch } from "@/redux/store";
 import DeliveryCollapsibleBox from "@/components/DeliveryCollapsibleBox";
 import Layout from "@/commons/Layout";
@@ -12,6 +12,7 @@ import IconButton from "@/commons/IconButton";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import DeliveryManProfile from "@/commons/DeliveryManProfile";
 import { CheckRefreshContext } from "@/context/refresh";
+import { showToast } from "@/utils/toast";
 
 function DetailsDeliveryMan() {
   const { _id } = useParams();
@@ -19,9 +20,10 @@ function DetailsDeliveryMan() {
 
   const getUser = useCallback(async () => {
     try {
-      await dispatch(setSelectedUser(_id)).unwrap();
+      await dispatch(setSelectedDeliveryMan(_id)).unwrap();
     } catch (error) {
       console.error(error);
+      showToast("error", "Error al obtener el usuario");
     }
   }, [_id, dispatch]);
 

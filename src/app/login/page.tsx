@@ -9,6 +9,7 @@ import { AppDispatch } from "@/redux/store";
 import { login } from "@/redux/reducers/user";
 import useInput from "@/hooks/useInput";
 import { useRouter } from "next/navigation";
+import { showToast } from "@/utils/toast";
 
 const Login = () => {
   const { push } = useRouter();
@@ -47,9 +48,11 @@ const Login = () => {
     };
     try {
       await dispatch(login(userData)).unwrap();
+      showToast("success", "¡Usuario logueado con éxito!");
       push("/home");
     } catch (error) {
       console.error(error);
+      showToast("error", "Credenciales inválidas");
     }
   };
 
@@ -69,12 +72,14 @@ const Login = () => {
           label="Usuario"
           name="email"
           placeholder="staffys@gmail.com"
+          {...email}
         />
         <TextInput
           label="Contraseña"
           name="password"
           placeholder="Contraseña"
           hidden
+          {...password}
         />
         <Button className="w-[100%] font-medium mt-5">Ingresar</Button>
       </form>

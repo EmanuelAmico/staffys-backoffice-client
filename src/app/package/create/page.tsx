@@ -12,6 +12,7 @@ import useInput from "@/hooks/useInput";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { createPackages } from "@/redux/reducers/package";
+import { showToast } from "@/utils/toast";
 
 const CreatePackage = () => {
   const router = useRouter();
@@ -75,9 +76,11 @@ const CreatePackage = () => {
     };
     try {
       await dispatch(createPackages(packageData)).unwrap();
+      showToast("success", "Paquete creado correctamente");
       push("/package/manage");
     } catch (error) {
       console.error(error);
+      showToast("error", "Error al crear el paquete");
     }
     return;
   };

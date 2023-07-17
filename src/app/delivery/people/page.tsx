@@ -10,6 +10,7 @@ import { CheckRefreshContext } from "@/context/refresh";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { getDeliveryPeople } from "@/redux/reducers/delivery";
+import { showToast } from "@/utils/toast";
 
 const DeliveryPeople = () => {
   const router = useRouter();
@@ -24,6 +25,7 @@ const DeliveryPeople = () => {
       await dispatch(getDeliveryPeople()).unwrap();
     } catch (error) {
       console.error(error);
+      showToast("error", "Error al obtener los repartidores");
     }
   }, [dispatch]);
 

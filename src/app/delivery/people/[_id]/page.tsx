@@ -13,7 +13,7 @@ import { RiArrowLeftSLine } from "react-icons/ri";
 import DeliveryManProfile from "@/commons/DeliveryManProfile";
 import { CheckRefreshContext } from "@/context/refresh";
 
-function DeliveryPeople() {
+function DetailsDeliveryMan() {
   const { _id } = useParams();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -59,4 +59,4 @@ function DeliveryPeople() {
   );
 }
 
-export default DeliveryPeople;
+export default DetailsDeliveryMan;

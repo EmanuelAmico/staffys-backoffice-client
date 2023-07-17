@@ -24,5 +24,5 @@ export interface PackageBody {
 }
 
 export interface initialStatePackage {
-  AvailablePackages: Package[];
+  availablePackages: Package[];
 }

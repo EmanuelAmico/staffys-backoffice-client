@@ -3,7 +3,7 @@ import { PackageBody, initialStatePackage } from "@/types/package.types";
 import { createAsyncThunk, createReducer } from "@reduxjs/toolkit";
 
 const initialState: initialStatePackage = {
-  AvailablePackages: [],
+  availablePackages: [],
 };
 
 export const createPackages = createAsyncThunk(
@@ -14,10 +14,23 @@ export const createPackages = createAsyncThunk(
   }
 );
 
+export const getAvailablePackages = createAsyncThunk(
+  "PACKAGE/AVAILABLE-PACKAGES",
+  async () => {
+    const { data } = await PackageService.getAvailablePackages();
+
+    return { availablePackages: data.packages };
+  }
+);
+
 const packageReducer = createReducer(initialState, (builder) => {
-  builder.addCase(createPackages.fulfilled, (_state, _action) => {
-    return;
-  });
+  builder
+    .addCase(createPackages.fulfilled, (_state, _action) => {
+      return;
+    })
+    .addCase(getAvailablePackages.fulfilled, (_state, action) => {
+      return action.payload;
+    });
 });
 
 export default packageReducer;

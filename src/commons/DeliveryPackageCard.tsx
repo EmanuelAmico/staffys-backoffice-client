@@ -5,9 +5,10 @@ import Image from "next/image";
 import { BsFillTrash3Fill } from "react-icons/bs";
 
 interface DeliveryPackageCardProps {
-  destination: string;
-  addressee: string;
-  distance: string;
+  address: string;
+  receptorName: string;
+  distance?: string;
+  city?: string;
   trash: boolean;
   buttonText: string;
   status?: string;
@@ -18,9 +19,10 @@ interface DeliveryPackageCardProps {
 }
 
 const DeliveryPackageCard: FC<DeliveryPackageCardProps> = ({
-  destination,
-  addressee,
+  address,
+  receptorName,
   distance,
+  city,
   status,
   trash,
   iconProps,
@@ -48,7 +50,7 @@ const DeliveryPackageCard: FC<DeliveryPackageCardProps> = ({
           <div className="flex gap-9 justify-between">
             <p className="text-greyText font-bold text-sm">
               Destino:{" "}
-              <span className="text-greyText font-normal text-sm">{`${destination}`}</span>
+              <span className="text-greyText font-normal text-sm">{`${address}`}</span>
             </p>
             {trash ? (
               <IconButton
@@ -64,12 +66,19 @@ const DeliveryPackageCard: FC<DeliveryPackageCardProps> = ({
           </div>
           <p className="text-greyText font-bold text-sm">
             Recibe:{" "}
-            <span className="text-greyText font-normal text-sm">{`${addressee}`}</span>
+            <span className="text-greyText font-normal text-sm">{`${receptorName}`}</span>
           </p>
-          <p className="text-greyText font-bold text-sm">
-            Distancia:{" "}
-            <span className="text-greyText font-normal text-sm">{`${distance}`}</span>
-          </p>
+          {distance ? (
+            <p className="text-greyText font-bold text-sm">
+              Distancia:{" "}
+              <span className="text-greyText font-normal text-sm">{`${distance}`}</span>
+            </p>
+          ) : (
+            <p className="text-greyText font-bold text-sm">
+              Ciudad:{" "}
+              <span className="text-greyText font-normal text-sm">{`${city}`}</span>
+            </p>
+          )}
           <div className="self-end pt-1">
             {status ? (
               status === "in progress" ? (

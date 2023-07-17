@@ -25,4 +25,17 @@ export class PackageService {
 
     return newPackage.data;
   }
+
+  static async getAvailablePackages() {
+    const newPackage = await axios.get(
+      `${this.apiUrl}/package/available-package`,
+      {
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    return newPackage.data;
+  }
 }

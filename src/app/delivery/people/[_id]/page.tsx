@@ -12,6 +12,7 @@ import IconButton from "@/commons/IconButton";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import DeliveryManProfile from "@/commons/DeliveryManProfile";
 import { CheckRefreshContext } from "@/context/refresh";
+import { showToast } from "@/utils/toast";
 
 function DeliveryPeople() {
   const { _id } = useParams();
@@ -22,6 +23,7 @@ function DeliveryPeople() {
       await dispatch(setSelectedDeliveryMan(_id)).unwrap();
     } catch (error) {
       console.error(error);
+      showToast("error", "Error al obtener el usuario");
     }
   }, [_id, dispatch]);
 

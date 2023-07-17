@@ -28,6 +28,20 @@ const initialState: User = {
 export const setUser = createAction<User>("SET_USER");
 export const logout = createAction("LOGOUT");
 
+export const editUserActive = createAsyncThunk(
+  "USER/EDIT",
+  async (is_active: boolean, thunkAPI) => {
+    const { user } = thunkAPI.getState() as { user: User };
+    const userActive = {
+      _id: user._id,
+      is_active,
+    };
+
+    const response = await UserService.editUser(userActive);
+    return response;
+  }
+);
+
 export const login = createAsyncThunk(
   "USER/LOGIN",
   async (userData: UserLogin) => {

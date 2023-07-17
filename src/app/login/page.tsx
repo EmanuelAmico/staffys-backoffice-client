@@ -46,6 +46,7 @@ const Login = () => {
       email: email.value,
       password: password.value,
     };
+
     try {
       await dispatch(login(userData)).unwrap();
       showToast("success", "¡Usuario logueado con éxito!");
@@ -78,6 +79,7 @@ const Login = () => {
           label="Contraseña"
           name="password"
           placeholder="Contraseña"
+          {...password}
           hidden
           {...password}
         />

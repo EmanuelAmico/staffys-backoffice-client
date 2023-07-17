@@ -30,3 +30,7 @@ export interface UserEditActive {
   is_active: boolean;
   _id: string;
 }
+
+export interface initialStateDelivery {
+  deliveryPeople: User[];
+}

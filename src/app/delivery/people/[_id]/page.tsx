@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useContext } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { setSelectedUser } from "@/redux/reducers/selectedUser";
+import { setSelectedUser } from "@/redux/reducers/user";
 import { AppDispatch } from "@/redux/store";
 import DeliveryCollapsibleBox from "@/components/DeliveryCollapsibleBox";
 import Layout from "@/commons/Layout";
@@ -13,7 +13,7 @@ import { RiArrowLeftSLine } from "react-icons/ri";
 import DeliveryManProfile from "@/commons/DeliveryManProfile";
 import { CheckRefreshContext } from "@/context/refresh";
 
-function DeliveryPeople() {
+function DetailsDeliveryMan() {
   const { _id } = useParams();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -53,10 +53,10 @@ function DeliveryPeople() {
         description="Ya repartiste 6 paquetes"
         delivery={false}
         packages={deliveryHistory}
-        pathButton="/delivery-history"
+        pathButton="/delivery/history"
       />
     </Layout>
   );
 }
 
-export default DeliveryPeople;
+export default DetailsDeliveryMan;

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import ProfileInfo from "@/commons/ProfileInfo";
 import DatePicker from "@/components/DatePicker";

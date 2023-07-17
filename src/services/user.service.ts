@@ -4,7 +4,7 @@ export class UserService {
   static apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   static async getUserById(_id: string) {
-    const user = await axios.get(`${this.apiUrl}/user/get-user/${_id}`, {
+    const user = await axios.get(`${this.apiUrl}/user/${_id}`, {
       headers: {
         Authorization: `Bearer ${window.localStorage.getItem("token")}`,
       },

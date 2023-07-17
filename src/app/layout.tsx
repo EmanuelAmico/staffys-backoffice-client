@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { SkeletonTheme } from "react-loading-skeleton";
 import CheckRefreshProvider from "../context/refresh";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const metadata = {
   title: "Staffys Back Office",

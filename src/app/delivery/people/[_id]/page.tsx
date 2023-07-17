@@ -20,7 +20,7 @@ function DetailsDeliveryMan() {
 
   const getUser = useCallback(async () => {
     try {
-      await dispatch(setSelectedDeliveryMan(_id)).unwrap();
+      await dispatch(setSelectedDeliveryMan(_id as string)).unwrap();
     } catch (error) {
       console.error(error);
       showToast("error", "Error al obtener el usuario");

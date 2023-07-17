@@ -1,6 +1,5 @@
 import { User } from "@/types/user.types";
 import axios from "axios";
-import { UserEditActive } from "@/types/user.types";
 export class UserService {
   static apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -11,10 +10,6 @@ export class UserService {
       },
     });
 
-    return user.data;
-  }
-  static async editUser(userEdit: UserEditActive) {
-    const user = await axios.put(`${this.apiUrl}/user/update`, { userEdit });
     return user.data;
   }
 

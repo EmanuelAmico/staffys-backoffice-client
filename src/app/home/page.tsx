@@ -3,13 +3,17 @@ import ProfileInfo from "@/commons/ProfileInfo";
 import DatePicker from "@/components/DatePicker";
 import DetailCard from "@/components/DetailCard";
 import Layout from "@/commons/Layout";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 const Home = () => {
+  const user = useSelector((state: RootState) => state.user);
+
   return (
     <Layout className="gap-2">
       <ProfileInfo
         profileImg={"/svg/userProfilePicture.svg"}
-        name="Santi"
+        name={user.name}
         module="Gestionar Pedidos"
         className="pt-4"
       />

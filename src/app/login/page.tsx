@@ -53,6 +53,9 @@ const Login = () => {
       push("/home");
     } catch (error) {
       console.error(error);
+      if ((error as Error).message === "User is not admin") {
+        return showToast("error", "Tu usuario no es admin");
+      }
       showToast("error", "Credenciales inválidas");
     }
   };

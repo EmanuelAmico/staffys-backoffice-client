@@ -1,8 +1,8 @@
 export const deliveryHistory = [
   {
     id: 1,
-    destination: "Calle 1",
-    addressee: "Juan Perez",
+    address: "Calle 1",
+    receptorName: "Juan Perez",
     distance: "1.5 km",
     buttonText: "Tomar",
     trash: true,
@@ -10,8 +10,8 @@ export const deliveryHistory = [
   },
   {
     id: 2,
-    destination: "Calle 2",
-    addressee: "Juan Perez",
+    address: "Calle 2",
+    receptorName: "Juan Perez",
     distance: "1.5 km",
     buttonText: "Tomar",
     trash: true,
@@ -19,8 +19,8 @@ export const deliveryHistory = [
   },
   {
     id: 3,
-    destination: "Calle 3",
-    addressee: "Juan Perez",
+    address: "Calle 3",
+    receptorName: "Juan Perez",
     distance: "1.5 km",
     buttonText: "Tomar",
     trash: true,
@@ -28,8 +28,8 @@ export const deliveryHistory = [
   },
   {
     id: 4,
-    destination: "Calle 4",
-    addressee: "Juan Perez",
+    address: "Calle 4",
+    receptorName: "Juan Perez",
     distance: "1.5 km",
     buttonText: "Tomar",
     trash: true,
@@ -37,8 +37,8 @@ export const deliveryHistory = [
   },
   {
     id: 5,
-    destination: "Calle 5",
-    addressee: "Juan Perez",
+    address: "Calle 5",
+    receptorName: "Juan Perez",
     distance: "1.5 km",
     buttonText: "Tomar",
     trash: true,
@@ -46,8 +46,8 @@ export const deliveryHistory = [
   },
   {
     id: 6,
-    destination: "Calle 6",
-    addressee: "Juan Perez",
+    address: "Calle 6",
+    receptorName: "Juan Perez",
     distance: "1.5 km",
     buttonText: "Tomar",
     trash: true,

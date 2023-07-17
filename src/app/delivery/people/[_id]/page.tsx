@@ -14,7 +14,7 @@ import DeliveryManProfile from "@/commons/DeliveryManProfile";
 import { CheckRefreshContext } from "@/context/refresh";
 import { showToast } from "@/utils/toast";
 
-function DeliveryPeople() {
+function DetailsDeliveryMan() {
   const { _id } = useParams();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -55,10 +55,10 @@ function DeliveryPeople() {
         description="Ya repartiste 6 paquetes"
         delivery={false}
         packages={deliveryHistory}
-        pathButton="/delivery-history"
+        pathButton="/delivery/history"
       />
     </Layout>
   );
 }
 
-export default DeliveryPeople;
+export default DetailsDeliveryMan;

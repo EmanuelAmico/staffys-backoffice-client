@@ -26,3 +26,7 @@ export interface UserLogin {
   email: string;
   password: string;
 }
+
+export interface initialStateDelivery {
+  deliveryPeople: User[];
+}

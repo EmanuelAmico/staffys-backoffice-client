@@ -9,6 +9,7 @@ export class UserService {
         Authorization: `Bearer ${window.localStorage.getItem("token")}`,
       },
     });
+
     return user.data;
   }
 
@@ -28,5 +29,18 @@ export class UserService {
     );
 
     return updatedUser;
+  }
+
+  static async getDeliveryPeople() {
+    const deliveryPeoples = await axios.get(
+      `${this.apiUrl}/user/all/delivery-people`,
+      {
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    return deliveryPeoples.data;
   }
 }

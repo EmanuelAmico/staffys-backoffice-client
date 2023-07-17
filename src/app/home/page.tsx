@@ -33,7 +33,7 @@ const Home = () => {
           title="Paquetes"
           description="16/20 repartidos"
           buttonText="Ver Paquetes"
-          pathButton="/manage-packages"
+          pathButton="/package/manage"
         />
       </div>
     </Layout>

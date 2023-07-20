@@ -25,7 +25,7 @@ export const setSelectedDeliveryMan = createAsyncThunk(
   "SELECTED_USER/SET",
   async (_id: string) => {
     const response = await UserService.getUserById(_id);
-    return response;
+    return response.data;
   }
 );
 

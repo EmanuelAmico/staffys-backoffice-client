@@ -76,14 +76,16 @@ const Login = () => {
           label="Usuario"
           name="email"
           placeholder="staffys@gmail.com"
+          type="email"
+          required
           {...email}
         />
         <TextInput
           label="Contraseña"
           name="password"
           placeholder="Contraseña"
-          {...password}
-          hidden
+          type="password"
+          required
           {...password}
         />
         <Button className="w-[100%] font-medium mt-5">Ingresar</Button>

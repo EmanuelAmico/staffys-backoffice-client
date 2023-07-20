@@ -26,8 +26,7 @@ const ManagePackages = () => {
     try {
       await dispatch(getAvailablePackages()).unwrap();
     } catch (error) {
-      console.error(error);
-      showToast("error", "Error al obtener los paquetes");
+      showToast("info", "No tienes paquetes creados");
     }
   }, [dispatch]);
 
@@ -42,8 +41,23 @@ const ManagePackages = () => {
         icon={<RiArrowLeftSLine size={40} />}
         className="self-start"
       />
-      <h4 className="mt-4 font-bold text-xl">Paquetes</h4>
-      <p className="mb-4">Hay 6 paquetes</p>
+      <div className="flex justify-between items-center">
+        <div className="my-4">
+          <h4 className="font-bold text-xl">Paquetes</h4>
+          <p className="">
+            {availablePackages.length !== 0
+              ? `Hay ${availablePackages.length} paquetes disponibles`
+              : "No hay paquetes disponibles"}
+          </p>
+        </div>
+        <IconButton
+          onClick={() => {
+            changeRefresh();
+            router.push("/package/create");
+          }}
+          icon={<AiFillPlusCircle size={45} className="fill-primaryBlue" />}
+        />
+      </div>
       <div className="pt-4 mb-4 px-4 border-t-2 overflow-y-scroll">
         {availablePackages?.map((_package) => (
           <div key={_package._id}>
@@ -59,14 +73,6 @@ const ManagePackages = () => {
           </div>
         ))}
       </div>
-      <IconButton
-        onClick={() => {
-          changeRefresh();
-          router.push("/package/create");
-        }}
-        className="self-end"
-        icon={<AiFillPlusCircle size={55} className="fill-primaryBlue" />}
-      />
     </Layout>
   );
 };

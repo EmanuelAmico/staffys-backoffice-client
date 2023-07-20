@@ -94,19 +94,34 @@ const CreatePackage = () => {
       />
       <h1 className="text-xl font-bold pt-3">Agregar paquetes</h1>
       <form autoComplete="off" className="pt-4" onSubmit={handleSubmit}>
-        <TextInput name="address" label="Dirección" {...address} required />
+        <TextInput
+          name="address"
+          label="Dirección"
+          type="text"
+          required
+          {...address}
+        />
         <TextInput
           name="receptorName"
           label="Nombre de quien recibe"
-          {...receptorName}
+          type="text"
           required
+          {...receptorName}
         />
-        <TextInput name="weight" label="Peso (Kg)" {...weight} required />
+        <TextInput
+          name="weight"
+          label="Peso (Kg)"
+          type="number"
+          required
+          {...weight}
+        />
         <TextInput
           name="deadline"
           label="Fecha limite entrega"
-          {...deadline}
+          type="date"
+          min={new Date().toISOString().split("T")[0]}
           required
+          {...deadline}
         />
         <TextInput name="city" label="Ciudad" {...city} required />
         <Button className="w-[100%] font-medium mt-5">Agregar</Button>

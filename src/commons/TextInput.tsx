@@ -8,6 +8,8 @@ interface TextInputProps extends ComponentPropsWithoutRef<"input"> {
   error?: string;
   helper?: string;
   tooltip?: string;
+  setShowPassword?: (value: boolean) => void;
+  showPassword?: boolean;
 }
 
 const TextInput: FC<TextInputProps> = ({
@@ -18,15 +20,11 @@ const TextInput: FC<TextInputProps> = ({
   disabled,
   className,
   tooltip,
+  setShowPassword,
+  showPassword,
   ...inputProps
 }) => {
   const [showIconTooltip, setShowIconTooltip] = useState(false);
-
-  const [showPassword, setShowPassword] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
 
   const handleIconMouseEnter = () => {
     setShowIconTooltip(true);
@@ -66,12 +64,12 @@ const TextInput: FC<TextInputProps> = ({
         )}
         {isPasswordInput && !showPassword ? (
           <IoMdEyeOff
-            onClick={togglePasswordVisibility}
+            onClick={() => setShowPassword?.(!showPassword)}
             className="absolute right-0 top-0 mt-2 mr-2"
           />
         ) : isPasswordInput && showPassword ? (
           <IoMdEye
-            onClick={togglePasswordVisibility}
+            onClick={() => setShowPassword?.(!showPassword)}
             className="absolute right-0 top-0 mt-2 mr-2"
           />
         ) : null}

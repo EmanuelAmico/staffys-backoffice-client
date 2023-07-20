@@ -1,5 +1,5 @@
 "use client";
-import React, { FormEvent } from "react";
+import React, { FormEvent, useState } from "react";
 import Layout from "@/commons/Layout";
 import Button from "@/commons/Button";
 import TextInput from "@/commons/TextInput";
@@ -14,6 +14,8 @@ import { showToast } from "@/utils/toast";
 const Login = () => {
   const { push } = useRouter();
   const dispatch = useDispatch<AppDispatch>();
+  const [showPassword, setShowPassword] = useState(false);
+
   const email = useInput({
     validators: [
       {
@@ -84,9 +86,11 @@ const Login = () => {
           label="Contraseña"
           name="password"
           placeholder="Contraseña"
-          type="password"
-          required
           {...password}
+          type={showPassword ? "text" : "password"}
+          setShowPassword={setShowPassword}
+          showPassword={showPassword}
+          required
         />
         <Button className="w-[100%] font-medium mt-5">Ingresar</Button>
       </form>

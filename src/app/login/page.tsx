@@ -83,8 +83,6 @@ const Login = () => {
           name="password"
           placeholder="Contraseña"
           {...password}
-          hidden
-          {...password}
         />
         <Button className="w-[100%] font-medium mt-5">Ingresar</Button>
       </form>

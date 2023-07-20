@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { getDeliveryPeople } from "@/redux/reducers/delivery";
 import { showToast } from "@/utils/toast";
+import { Package } from "@/types/package.types";
 
 const DeliveryPeople = () => {
   const router = useRouter();
@@ -31,8 +32,8 @@ const DeliveryPeople = () => {
 
   const status = (
     is_active: boolean,
-    currentPackage: string | null,
-    pendingPackages: string[]
+    currentPackage: Package | null,
+    pendingPackages: Package[]
   ) => {
     if (!is_active) return "inactive";
     if (currentPackage) return "in-progress";
@@ -40,7 +41,10 @@ const DeliveryPeople = () => {
     return null;
   };
 
-  const percentage = (is_active: boolean, pendingPackages: string[]) => {
+  const percentage = (
+    is_active: boolean,
+    pendingPackages: string[] | Package[]
+  ) => {
     if (!is_active) return 0;
     const result = 100 - pendingPackages.length * 10;
     return result;

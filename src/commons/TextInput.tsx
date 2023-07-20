@@ -51,7 +51,6 @@ const TextInput: FC<TextInputProps> = ({
           {...inputProps}
           id={name}
           name={name}
-          type={!showPassword && isPasswordInput ? "password" : "text"}
           className={`text-blackText text-base w-full p-1 border-b-2 border-solid bg-inherit pl-0 outline-0 ${
             disabled ? "border-b-disableButton" : "border-b-primaryBlue"
           }`}

@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext } from "react";
-import InputText from "@/commons/TextInput";
+import TextInput from "@/commons/TextInput";
 import Layout from "@/commons/Layout";
 import Button from "@/commons/Button";
 import DeliveryPackageCard from "@/commons/DeliveryPackageCard";
@@ -32,10 +32,12 @@ const DeliveryHistory = () => {
           </Button>
         </div>
         <form autoComplete="off">
-          <InputText
+          <TextInput
             name="search"
             placeholder="Inserte su búsqueda"
             label="Filtrar Pedido"
+            type="text"
+            required
           />
         </form>
       </div>

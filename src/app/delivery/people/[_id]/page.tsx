@@ -1,13 +1,11 @@
 "use client";
 import React, { useCallback, useEffect, useContext } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSelectedDeliveryMan } from "@/redux/reducers/selectedDeliveryMan";
-import { AppDispatch } from "@/redux/store";
+import { AppDispatch, RootState } from "@/redux/store";
 import DeliveryCollapsibleBox from "@/components/DeliveryCollapsibleBox";
 import Layout from "@/commons/Layout";
-import { deliveryHistory } from "@/utils/FakeDataDeliveryHistory";
-import { deliveryPending } from "@/utils/FakeDataDeliveryPending";
 import IconButton from "@/commons/IconButton";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import DeliveryManProfile from "@/commons/DeliveryManProfile";
@@ -17,7 +15,9 @@ import { showToast } from "@/utils/toast";
 function DetailsDeliveryMan() {
   const { _id } = useParams();
   const dispatch = useDispatch<AppDispatch>();
-
+  const selectedDeliveryMan = useSelector(
+    (state: RootState) => state.selectedDeliveryMan
+  );
   const getUser = useCallback(async () => {
     try {
       await dispatch(setSelectedDeliveryMan(_id as string)).unwrap();
@@ -41,20 +41,32 @@ function DetailsDeliveryMan() {
         className="self-start"
       />
       <DeliveryManProfile
-        transporterName="Farid"
+        transporterName={selectedDeliveryMan.name}
         profileImage="/svg/faridProfilePicture.svg"
       />
       <DeliveryCollapsibleBox
         title="Repartos pendientes"
-        description="No tenes 6 repartos pendientes"
+        description={
+          selectedDeliveryMan.pendingPackages.length > 0
+            ? `Tenés ${selectedDeliveryMan.pendingPackages.length} paquetes pendientes.`
+            : "No tenés paquetes pendientes."
+        }
         delivery={false}
-        packages={deliveryPending}
+        packages={selectedDeliveryMan.pendingPackages}
       />
       <DeliveryCollapsibleBox
         title="Historial de repartos"
-        description="Ya repartiste 6 paquetes"
+        description={
+          selectedDeliveryMan.historyPackages.length > 0
+            ? `Ya repartiste ${
+                selectedDeliveryMan.historyPackages.length
+              } paquete${
+                selectedDeliveryMan.historyPackages.length > 1 ? "s" : ""
+              }.`
+            : "Aún no repartiste ningún paquete."
+        }
         delivery={false}
-        packages={deliveryHistory}
+        packages={selectedDeliveryMan.historyPackages}
         pathButton="/delivery/history"
       />
     </Layout>

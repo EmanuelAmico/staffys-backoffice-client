@@ -5,17 +5,26 @@ import Image from "next/image";
 import { BsFillTrash3Fill } from "react-icons/bs";
 
 interface DeliveryPackageCardProps {
-  address: string;
-  receptorName: string;
-  distance?: string;
-  city?: string;
   trash: boolean;
   buttonText: string;
-  status?: string;
   buttonProps?: ButtonProps;
   iconProps?: IconButtonProps;
   className?: string;
   onClick?: () => void;
+  _id?: string;
+  address?: string;
+  receptorName?: string;
+  deliveryMan?: string | null;
+  weight?: number | null;
+  deliveredAt?: Date | null;
+  status?: "taken" | "in_progress" | "delivered" | null;
+  deadline?: Date;
+  city?: string;
+  coordinates?: {
+    lat: number;
+    lng: number;
+  } | null;
+  distance?: number | null;
 }
 
 const DeliveryPackageCard: FC<DeliveryPackageCardProps> = ({
@@ -81,7 +90,7 @@ const DeliveryPackageCard: FC<DeliveryPackageCardProps> = ({
           )}
           <div className="self-end pt-1">
             {status ? (
-              status === "in progress" ? (
+              status === "in_progress" ? (
                 <p className="font-bold text-yellowText">En curso</p>
               ) : (
                 <p className="font-bold ">Entregado</p>

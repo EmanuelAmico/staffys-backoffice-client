@@ -6,14 +6,14 @@ import PackageDescription, {
 } from "@/commons/PackageDescription";
 import Button, { ButtonProps } from "@/commons/Button";
 import { StrictUnion } from "@/types/helper.types";
-import { DeliveryFakeData } from "@/utils/FakeDataDeliveryPending";
+//import { DeliveryFakeData } from "@/utils/FakeDataDeliveryPending";
 import { useRouter } from "next/navigation";
-
+import { Package } from "@/types/package.types";
 interface DeliveryCollapsibleBoxWithDelivery
   extends DropdownBoxProps,
     PackageDescriptionProps {
   className?: string;
-  packages?: DeliveryFakeData[];
+  packages?: Package[];
   buttonProps?: ButtonProps;
   buttonText?: string;
   delivery: true;
@@ -23,7 +23,7 @@ interface DeliveryCollapsibleBoxWithoutDelivery
   extends DropdownBoxProps,
     PackageDescriptionProps {
   className?: string;
-  packages?: DeliveryFakeData[];
+  packages?: Package[];
   buttonProps?: ButtonProps;
   pathButton?: string;
   delivery: false;
@@ -68,12 +68,14 @@ const DeliveryCollapsibleBox: FC<DeliveryCollapsibleBoxProps> = ({
           ) : packages ? (
             <>
               {packages.map((deliveryPackage) => (
-                <div key={deliveryPackage.id}>
+                <div key={deliveryPackage._id}>
                   <DeliveryPackageCard
+                    trash={false}
+                    buttonText=""
                     className="mb-4"
                     {...deliveryPackage}
                     onClick={() =>
-                      push(`package/description/${deliveryPackage.id}`)
+                      push(`package/description/${deliveryPackage._id}`)
                     }
                   />
                   {deliveryPackage !== packages.at(-1) && (

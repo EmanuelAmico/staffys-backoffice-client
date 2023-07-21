@@ -28,7 +28,7 @@ const DeliveryPeople = () => {
       await dispatch(getDeliveryPeople()).unwrap();
     } catch (error) {
       console.error(error);
-      showToast("info", "Aun no tienes repartidores registrado");
+      showToast("info", "Aun no tienes repartidores registrados");
     }
   }, [dispatch]);
 

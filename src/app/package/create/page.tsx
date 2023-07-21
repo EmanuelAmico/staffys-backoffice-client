@@ -113,6 +113,7 @@ const CreatePackage = () => {
           label="Peso (Kg)"
           type="number"
           required
+          tooltip="El peso debe ser un numero"
           {...weight}
         />
         <TextInput
@@ -124,7 +125,7 @@ const CreatePackage = () => {
           {...deadline}
         />
         <TextInput name="city" label="Ciudad" {...city} required />
-        <Button className="w-[100%] font-medium mt-5">Agregar</Button>
+        <Button className="w-[100%] font-medium mt-2">Agregar</Button>
       </form>
     </Layout>
   );

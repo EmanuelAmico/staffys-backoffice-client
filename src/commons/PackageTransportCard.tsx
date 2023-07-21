@@ -4,7 +4,13 @@ import PercentageCircle from "./PercentageCircle";
 
 interface PackageTransportCardProps {
   percentage: number;
-  status: "in-progress" | "all-delivered" | "inactive" | null;
+  status?:
+    | "in-progress"
+    | "all-delivered"
+    | "disabled"
+    | "active"
+    | "ready"
+    | null;
   transporterName: string;
   profileImage: string;
   className?: string;
@@ -19,11 +25,11 @@ const PackageTransportCard: FC<PackageTransportCardProps> = ({
 }) => {
   const handleStatus = (() => {
     switch (status) {
-      case "inactive":
+      case "disabled":
         return {
           textColor: "text-redIcon",
           backgroundColor: "bg-redIcon",
-          statusText: "Inactivo",
+          statusText: "desabilitado",
         };
 
       case "in-progress":
@@ -31,6 +37,20 @@ const PackageTransportCard: FC<PackageTransportCardProps> = ({
           textColor: "text-primaryBlue",
           backgroundColor: "bg-primaryBlue",
           statusText: "Viaje en curso",
+        };
+
+      case "active":
+        return {
+          textColor: "text-greyText",
+          backgroundColor: "bg-greyText",
+          statusText: "Activo",
+        };
+
+      case "ready":
+        return {
+          textColor: "text-yellowText",
+          backgroundColor: "bg-yellowBackground",
+          statusText: "Preparado para repartir",
         };
 
       case "all-delivered":

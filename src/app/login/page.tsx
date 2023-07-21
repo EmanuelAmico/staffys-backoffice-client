@@ -75,7 +75,7 @@ const Login = () => {
       </div>
       <form autoComplete="off" className="pt-16 pb-5" onSubmit={handleSubmit}>
         <TextInput
-          label="Usuario"
+          label="Email"
           name="email"
           placeholder="staffys@gmail.com"
           type="email"

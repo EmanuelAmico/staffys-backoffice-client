@@ -1,4 +1,5 @@
 "use client";
+
 import IconButton from "@/commons/IconButton";
 import Layout from "@/commons/Layout";
 import { RiArrowLeftSLine } from "react-icons/ri";
@@ -12,6 +13,7 @@ import { AppDispatch, RootState } from "@/redux/store";
 import { getDeliveryPeople } from "@/redux/reducers/delivery";
 import { showToast } from "@/utils/toast";
 import { Package } from "@/types/package.types";
+import Link from "next/link";
 
 const DeliveryPeople = () => {
   const router = useRouter();
@@ -26,28 +28,43 @@ const DeliveryPeople = () => {
       await dispatch(getDeliveryPeople()).unwrap();
     } catch (error) {
       console.error(error);
-      showToast("error", "Error al obtener los repartidores");
+      showToast("info", "Aun no tienes repartidores registrado");
     }
   }, [dispatch]);
 
   const status = (
-    is_active: boolean,
+    is_disabled: boolean,
+    is_able_to_deliver: boolean,
     currentPackage: Package | null,
     pendingPackages: Package[]
   ) => {
-    if (!is_active) return "inactive";
+    if (is_disabled) return "disabled";
     if (currentPackage) return "in-progress";
+    if (is_able_to_deliver && pendingPackages.length !== 0) return "ready";
+    if (is_able_to_deliver) return "active";
     if (pendingPackages.length === 0) return "all-delivered";
     return null;
   };
 
-  const percentage = (
-    is_active: boolean,
-    pendingPackages: string[] | Package[]
+  const calculatePercentage = (
+    is_disabled: boolean,
+    currentPackage: Package | null,
+    pendingPackages: Package[],
+    historyPackages: Package[]
   ) => {
-    if (!is_active) return 0;
-    const result = 100 - pendingPackages.length * 10;
-    return result;
+    const todayPackageHistory = historyPackages.filter(
+      (_package) => _package.status === "delivered"
+    );
+
+    const countDelivered = todayPackageHistory.length;
+    const countPending = pendingPackages.length;
+    const countCurrent = currentPackage ? 1 : 0;
+
+    const totalPackages = countCurrent + countPending + countDelivered;
+
+    if (is_disabled) return 0;
+    if (!countDelivered) return 0;
+    return ((countDelivered + countPending) * 100) / totalPackages;
   };
 
   useEffect(() => {
@@ -62,19 +79,26 @@ const DeliveryPeople = () => {
         className="self-start"
       />
       <Card title="Repartidores" className="grow overflow-y-hidden">
-        <div className="flex flex-col gap-8 mt-8 h-[85%] overflow-y-auto">
+        <div className="flex flex-col gap-8 mt-5 h-[86%] overflow-y-auto">
           {deliveryPeople?.map((user) => (
-            <PackageTransportCard
-              key={user._id}
-              percentage={percentage(user.is_active, user.pendingPackages)}
-              status={status(
-                user.is_active,
-                user.currentPackage,
-                user.pendingPackages
-              )}
-              transporterName={user.name}
-              profileImage="/svg/faridProfilePicture.svg" // NOTE: Don`t forget to change image
-            />
+            <Link key={user._id} href={`/delivery/people/${user._id}`}>
+              <PackageTransportCard
+                percentage={calculatePercentage(
+                  user.is_disabled,
+                  user.currentPackage,
+                  user.pendingPackages,
+                  user.historyPackages
+                )}
+                status={status(
+                  user.is_disabled,
+                  user.is_able_to_deliver,
+                  user.currentPackage,
+                  user.pendingPackages
+                )}
+                transporterName={user.name}
+                profileImage="/svg/faridProfilePicture.svg" // NOTE: Don`t forget to change image
+              />
+            </Link>
           ))}
         </div>
       </Card>

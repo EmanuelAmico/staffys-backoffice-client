@@ -26,6 +26,7 @@ const ManagePackages = () => {
     try {
       await dispatch(getAvailablePackages()).unwrap();
     } catch (error) {
+      console.error(error);
       showToast("info", "No tienes paquetes creados");
     }
   }, [dispatch]);

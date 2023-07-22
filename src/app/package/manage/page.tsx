@@ -63,6 +63,7 @@ const ManagePackages = () => {
         {availablePackages?.map((_package) => (
           <div key={_package._id}>
             <DeliveryPackageCard
+              _id={_package._id}
               className="mb-4"
               address={_package.address}
               receptorName={_package.receptorName}

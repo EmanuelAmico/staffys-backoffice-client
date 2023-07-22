@@ -1,8 +1,11 @@
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
 import { ButtonProps } from "./Button";
 import IconButton, { IconButtonProps } from "./IconButton";
 import Image from "next/image";
 import { BsFillTrash3Fill } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
+import { detelePackageById } from "@/redux/reducers/package";
 
 interface DeliveryPackageCardProps {
   trash: boolean;
@@ -36,8 +39,14 @@ const DeliveryPackageCard: FC<DeliveryPackageCardProps> = ({
   trash,
   iconProps,
   className,
+  _id,
   onClick,
 }) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const handleTrashIcon = useCallback(async () => {
+    dispatch(detelePackageById(_id as string));
+  }, [_id, dispatch]);
+
   return (
     <div
       className={`bg-whiteBackground rounded-lg shadow-md ${className || ""}`}
@@ -63,6 +72,7 @@ const DeliveryPackageCard: FC<DeliveryPackageCardProps> = ({
             </p>
             {trash ? (
               <IconButton
+                onClick={handleTrashIcon}
                 icon={
                   <BsFillTrash3Fill
                     className="fill-redIcon hover:fill-hoverRedIcon"

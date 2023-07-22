@@ -25,12 +25,12 @@ const DeliveryPeople = () => {
 
   const retrieveDeliveryPeople = useCallback(async () => {
     try {
-      await dispatch(getDeliveryPeople()).unwrap();
+      if (!deliveryPeople.length) await dispatch(getDeliveryPeople()).unwrap();
     } catch (error) {
       console.error(error);
       showToast("info", "Aun no tienes repartidores registrados");
     }
-  }, [dispatch]);
+  }, [deliveryPeople.length, dispatch]);
 
   const status = (
     is_disabled: boolean,

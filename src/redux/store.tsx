@@ -5,6 +5,8 @@ import selectedDeliveryManReducer from "./reducers/selectedDeliveryMan";
 import userReducer from "./reducers/user";
 import deliveryReducer from "./reducers/delivery";
 import packageReducer from "./reducers/package";
+import selectedHistoryReducer from "./reducers/selectedHistory";
+import historiesReducer from "./reducers/histories";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +14,8 @@ const store = configureStore({
     selectedDeliveryMan: selectedDeliveryManReducer,
     delivery: deliveryReducer,
     package: packageReducer,
+    histories: historiesReducer,
+    selectedHistory: selectedHistoryReducer,
   },
 });
 

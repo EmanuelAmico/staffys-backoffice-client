@@ -1,10 +1,25 @@
 import { PackageService } from "@/services/package.service";
 import { PackageBody, initialStatePackage } from "@/types/package.types";
 import { createAsyncThunk, createReducer } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 const initialState: initialStatePackage = {
   availablePackages: [],
 };
+
+export const detelePackageById = createAsyncThunk(
+  "PACKAGE/DELETE",
+  async (_id: string, thunkAPI) => {
+    await PackageService.deletePackageById(_id);
+    const state = thunkAPI.getState() as RootState;
+    return {
+      ...state.package,
+      availablePackages: state.package.availablePackages.filter(
+        (item) => item._id !== _id
+      ),
+    };
+  }
+);
 
 export const createPackages = createAsyncThunk(
   "PACKAGE/CREATE",
@@ -27,6 +42,9 @@ const packageReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(createPackages.fulfilled, (_state, _action) => {
       return;
+    })
+    .addCase(detelePackageById.fulfilled, (_state, action) => {
+      return action.payload;
     })
     .addCase(getAvailablePackages.fulfilled, (_state, action) => {
       return action.payload;

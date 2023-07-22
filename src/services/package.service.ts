@@ -38,4 +38,12 @@ export class PackageService {
 
     return newPackage.data;
   }
+
+  static async deletePackageById(_id: string) {
+    await axios.delete(`${this.apiUrl}/package/delete-package/${_id}`, {
+      headers: {
+        Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+      },
+    });
+  }
 }

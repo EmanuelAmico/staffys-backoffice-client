@@ -1,18 +1,14 @@
 import React, { FC } from "react";
 import Image from "next/image";
 import PercentageCircle from "./PercentageCircle";
+import { RiForbidLine } from "react-icons/ri";
 
 interface PackageTransportCardProps {
   percentage: number;
-  status?:
-    | "in-progress"
-    | "all-delivered"
-    | "disabled"
-    | "active"
-    | "ready"
-    | null;
+  status?: "in-progress" | "all-delivered" | "disabled" | "active" | "ready";
   transporterName: string;
   profileImage: string;
+  disabled?: boolean;
   className?: string;
 }
 
@@ -21,6 +17,7 @@ const PackageTransportCard: FC<PackageTransportCardProps> = ({
   profileImage,
   status,
   percentage,
+  disabled,
   className,
 }) => {
   const handleStatus = (() => {
@@ -71,7 +68,13 @@ const PackageTransportCard: FC<PackageTransportCardProps> = ({
 
   return (
     <div className={`flex items-center gap-4 ${className || ""}`}>
-      <PercentageCircle percentage={percentage} />
+      {disabled ? (
+        <div className="px-4 items-center justify-center">
+          <RiForbidLine size={30} />
+        </div>
+      ) : (
+        <PercentageCircle percentage={percentage} />
+      )}
       <div className="flex flex-col gap-2 ml-2 grow">
         <p className="font-bold text-base">{transporterName}</p>
         <p

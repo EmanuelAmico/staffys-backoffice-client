@@ -4,7 +4,7 @@ import Button from "@/commons/Button";
 import IconButton from "@/commons/IconButton";
 import Layout from "@/commons/Layout";
 import TextInput from "@/commons/TextInput";
-import React, { FormEvent, useContext } from "react";
+import React, { FormEvent, useContext, useState } from "react";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { useRouter } from "next/navigation";
 import { CheckRefreshContext } from "@/context/refresh";
@@ -19,6 +19,7 @@ const CreatePackage = () => {
   const { isRefreshed } = useContext(CheckRefreshContext);
   const { push } = useRouter();
   const dispatch = useDispatch<AppDispatch>();
+  const [loading, setLoading] = useState(false);
 
   const address = useInput({
     validators: [
@@ -75,12 +76,15 @@ const CreatePackage = () => {
       city: city.value,
     };
     try {
+      setLoading(true);
       await dispatch(createPackages(packageData)).unwrap();
       showToast("success", "Paquete creado correctamente");
+      setLoading(false);
       push("/package/manage");
     } catch (error) {
       console.error(error);
       showToast("error", "Error al crear el paquete");
+      setLoading(false);
     }
     return;
   };
@@ -89,9 +93,10 @@ const CreatePackage = () => {
     <Layout>
       <IconButton
         onClick={() => (isRefreshed ? router.push("/home") : router.back())}
-        icon={<RiArrowLeftSLine size={40} />}
         className="self-start"
-      />
+      >
+        {<RiArrowLeftSLine size={40} />}
+      </IconButton>
       <h1 className="text-xl font-bold pt-3">Agregar paquetes</h1>
       <form autoComplete="off" className="pt-4" onSubmit={handleSubmit}>
         <TextInput
@@ -125,7 +130,9 @@ const CreatePackage = () => {
           {...deadline}
         />
         <TextInput name="city" label="Ciudad" {...city} required />
-        <Button className="w-[100%] font-medium mt-2">Agregar</Button>
+        <Button loading={loading} className="w-[100%] font-medium mt-2">
+          Agregar
+        </Button>
       </form>
     </Layout>
   );

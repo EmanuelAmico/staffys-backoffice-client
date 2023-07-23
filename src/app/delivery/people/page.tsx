@@ -41,9 +41,9 @@ const DeliveryPeople = () => {
     if (is_disabled) return "disabled";
     if (currentPackage) return "in-progress";
     if (is_able_to_deliver && pendingPackages.length !== 0) return "ready";
+    if (!is_able_to_deliver && pendingPackages.length === 0)
+      return "all-delivered";
     if (is_able_to_deliver) return "active";
-    if (pendingPackages.length === 0) return "all-delivered";
-    return null;
   };
 
   const calculatePercentage = (
@@ -53,7 +53,9 @@ const DeliveryPeople = () => {
     historyPackages: Package[]
   ) => {
     const todayPackageHistory = historyPackages.filter(
-      (_package) => _package.status === "delivered"
+      (_package) =>
+        new Date(_package.updatedAt).toLocaleString().split(",")[0] ===
+        new Date().toLocaleString().split(",")[0]
     );
 
     const countDelivered = todayPackageHistory.length;
@@ -75,9 +77,10 @@ const DeliveryPeople = () => {
     <Layout className="gap-4">
       <IconButton
         onClick={() => (isRefreshed ? router.push("/home") : router.back())}
-        icon={<RiArrowLeftSLine size={40} />}
         className="self-start"
-      />
+      >
+        {<RiArrowLeftSLine size={40} />}
+      </IconButton>
       <Card title="Repartidores" className="grow overflow-y-hidden">
         <div className="flex flex-col gap-8 mt-5 h-[86%] overflow-y-auto">
           {deliveryPeople?.map((user) => (
@@ -96,6 +99,7 @@ const DeliveryPeople = () => {
                   user.pendingPackages
                 )}
                 transporterName={user.name}
+                disabled={user.is_disabled}
                 profileImage="/svg/faridProfilePicture.svg" // NOTE: Don`t forget to change image
               />
             </Link>

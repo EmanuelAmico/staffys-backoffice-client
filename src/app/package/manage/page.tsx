@@ -2,12 +2,11 @@
 
 import IconButton from "@/commons/IconButton";
 import Layout from "@/commons/Layout";
-import React, { useCallback, useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { useRouter } from "next/navigation";
 import DeliveryPackageCard from "@/commons/DeliveryPackageCard";
 import { AiFillPlusCircle } from "react-icons/ai";
-
 import { CheckRefreshContext } from "@/context/refresh";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
@@ -21,6 +20,7 @@ const ManagePackages = () => {
   const availablePackages = useSelector(
     (state: RootState) => state.package.availablePackages
   );
+  const [loading, setLoading] = useState(false);
 
   const retrieveAvailablePackages = useCallback(async () => {
     try {
@@ -39,9 +39,10 @@ const ManagePackages = () => {
     <Layout>
       <IconButton
         onClick={() => (isRefreshed ? router.push("/home") : router.back())}
-        icon={<RiArrowLeftSLine size={40} />}
         className="self-start"
-      />
+      >
+        {<RiArrowLeftSLine size={40} />}
+      </IconButton>
       <div className="flex justify-between items-center">
         <div className="my-4">
           <h4 className="font-bold text-xl">Paquetes</h4>
@@ -52,12 +53,15 @@ const ManagePackages = () => {
           </p>
         </div>
         <IconButton
+          loading={loading}
           onClick={() => {
             changeRefresh();
+            setLoading(true);
             router.push("/package/create");
           }}
-          icon={<AiFillPlusCircle size={45} className="fill-primaryBlue" />}
-        />
+        >
+          <AiFillPlusCircle size={45} className="fill-primaryBlue" />
+        </IconButton>
       </div>
       <div className="pt-4 mb-4 px-4 border-t-2 overflow-y-scroll">
         {availablePackages?.map((_package) => (

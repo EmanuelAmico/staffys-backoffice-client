@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useCallback, useEffect, useContext } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,9 +38,10 @@ function DetailsDeliveryMan() {
     <Layout className="gap-4">
       <IconButton
         onClick={() => (isRefreshed ? router.push("/home") : router.back())}
-        icon={<RiArrowLeftSLine size={40} />}
         className="self-start"
-      />
+      >
+        {<RiArrowLeftSLine size={40} />}
+      </IconButton>
       <DeliveryManProfile
         transporterName={selectedDeliveryMan.name}
         profileImage="/svg/faridProfilePicture.svg"
@@ -67,7 +69,11 @@ function DetailsDeliveryMan() {
         }
         delivery={false}
         packages={selectedDeliveryMan.historyPackages}
-        pathButton="/delivery/history"
+        pathButton={
+          selectedDeliveryMan.historyPackages.length !== 0
+            ? "/delivery/history"
+            : ""
+        }
       />
     </Layout>
   );

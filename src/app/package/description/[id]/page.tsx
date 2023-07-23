@@ -16,9 +16,10 @@ const SinglePackageDescription = () => {
     <Layout className="items-center">
       <IconButton
         onClick={() => (isRefreshed ? router.push("/home") : router.back())}
-        icon={<RiArrowLeftSLine size={40} />}
         className="self-start"
-      />
+      >
+        {<RiArrowLeftSLine size={40} />}
+      </IconButton>
       <Card title="Reparto finalizado">
         <PackageDescription
           className="pt-6"

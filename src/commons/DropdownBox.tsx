@@ -30,15 +30,13 @@ const DropdownBox: FC<DropdownBoxProps> = ({
         <div className="flex items-center justify-between">
           <h1 className="text-lg font-bold">{title}</h1>
           {!arrowButton ? (
-            <IconButton
-              icon={<IoMdArrowDropdown size={25} />}
-              onClick={() => setArrowButton(!arrowButton)}
-            />
+            <IconButton onClick={() => setArrowButton(!arrowButton)}>
+              {<IoMdArrowDropdown size={25} />}
+            </IconButton>
           ) : (
-            <IconButton
-              icon={<IoMdArrowDropup size={25} />}
-              onClick={() => setArrowButton(!arrowButton)}
-            />
+            <IconButton onClick={() => setArrowButton(!arrowButton)}>
+              {<IoMdArrowDropup size={25} />}
+            </IconButton>
           )}
         </div>
         <p className={"text-sm pb-4"}>{description}</p>

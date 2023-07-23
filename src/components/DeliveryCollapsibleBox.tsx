@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import DeliveryPackageCard from "@/commons/DeliveryPackageCard";
 import DropdownBox, { DropdownBoxProps } from "@/commons/DropdownBox";
 import PackageDescription, {
@@ -6,7 +6,6 @@ import PackageDescription, {
 } from "@/commons/PackageDescription";
 import Button, { ButtonProps } from "@/commons/Button";
 import { StrictUnion } from "@/types/helper.types";
-//import { DeliveryFakeData } from "@/utils/FakeDataDeliveryPending";
 import { useRouter } from "next/navigation";
 import { Package } from "@/types/package.types";
 interface DeliveryCollapsibleBoxWithDelivery
@@ -48,6 +47,7 @@ const DeliveryCollapsibleBox: FC<DeliveryCollapsibleBoxProps> = ({
   className,
 }) => {
   const { push } = useRouter();
+  const [loading, setLoading] = useState(false);
 
   return (
     <div className={`${className || ""}`}>
@@ -74,6 +74,13 @@ const DeliveryCollapsibleBox: FC<DeliveryCollapsibleBoxProps> = ({
                     buttonText=""
                     className="mb-4"
                     {...deliveryPackage}
+                    status={
+                      deliveryPackage.status === "delivered"
+                        ? "delivered"
+                        : deliveryPackage.status === "in_progress"
+                        ? "in_progress"
+                        : null
+                    }
                     onClick={() =>
                       push(`package/description/${deliveryPackage._id}`)
                     }
@@ -85,7 +92,11 @@ const DeliveryCollapsibleBox: FC<DeliveryCollapsibleBoxProps> = ({
               ))}
               {pathButton ? (
                 <Button
-                  onClick={() => push(pathButton)}
+                  loading={loading}
+                  onClick={() => {
+                    setLoading(true);
+                    push(pathButton);
+                  }}
                   className="m-auto py-[0.20rem]"
                   {...buttonProps}
                 >

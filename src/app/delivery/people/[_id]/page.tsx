@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useCallback, useEffect, useContext } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
@@ -68,7 +69,11 @@ function DetailsDeliveryMan() {
         }
         delivery={false}
         packages={selectedDeliveryMan.historyPackages}
-        pathButton="/delivery/history"
+        pathButton={
+          selectedDeliveryMan.historyPackages.length !== 0
+            ? "/delivery/history"
+            : ""
+        }
       />
     </Layout>
   );

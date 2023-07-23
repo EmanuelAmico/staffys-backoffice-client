@@ -5,14 +5,18 @@ import Layout from "@/commons/Layout";
 import Button from "@/commons/Button";
 import DeliveryPackageCard from "@/commons/DeliveryPackageCard";
 import IconButton from "@/commons/IconButton";
-import { deliveryHistory } from "@/utils/FakeDataDeliveryHistory";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { useRouter } from "next/navigation";
 import { CheckRefreshContext } from "@/context/refresh";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 const DeliveryHistory = () => {
   const router = useRouter();
   const { isRefreshed } = useContext(CheckRefreshContext);
+  const { historyPackages } = useSelector(
+    (state: RootState) => state.selectedDeliveryMan
+  );
 
   return (
     <Layout>
@@ -22,14 +26,16 @@ const DeliveryHistory = () => {
       >
         {<RiArrowLeftSLine size={40} />}
       </IconButton>
-      <div className="flex flex-col gap-6 mb-4 mt-3">
+      <div className="flex flex-col gap-5 mt-3">
         <div className="flex flex-row gap-2 ">
-          <Button className="w-11/12 ">Direccion</Button>
+          <Button className="w-11/12 " disabled>
+            Direccion
+          </Button>
           <Button className="w-11/12 " disabled>
             Destinatario
           </Button>
           <Button className="w-11/12 " disabled>
-            ID
+            Ciudad
           </Button>
         </div>
         <form autoComplete="off">
@@ -43,12 +49,17 @@ const DeliveryHistory = () => {
         </form>
       </div>
       <div className="pt-4 mb-4 px-4 border-t-2 overflow-y-scroll">
-        {deliveryHistory.map((deliveryPackage) => (
-          <div key={deliveryPackage.id}>
-            <DeliveryPackageCard className="mb-4" {...deliveryPackage} />
-            {deliveryPackage !== deliveryHistory.at(-1) && (
-              <hr className="mb-4" />
-            )}
+        {historyPackages.map((_package) => (
+          <div key={_package._id}>
+            <DeliveryPackageCard
+              className="mb-4"
+              trash={false}
+              buttonText=""
+              receptorName={_package.receptorName}
+              city={_package.city}
+              address={_package.address}
+            />
+            {_package !== historyPackages.at(-1) && <hr className="mb-4" />}
           </div>
         ))}
       </div>

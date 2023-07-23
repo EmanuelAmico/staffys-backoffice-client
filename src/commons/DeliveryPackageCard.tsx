@@ -98,14 +98,12 @@ const DeliveryPackageCard: FC<DeliveryPackageCardProps> = ({
           )}
           <div className="self-end pt-1">
             {status ? (
-              status === "in_progress" ? (
-                <p className="font-bold text-yellowText">En curso</p>
-              ) : (
+              status === "delivered" ? (
                 <p className="font-bold ">Entregado</p>
+              ) : (
+                ""
               )
-            ) : (
-              ""
-            )}
+            ) : null}
           </div>
         </div>
       </div>

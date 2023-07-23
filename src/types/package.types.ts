@@ -1,5 +1,6 @@
 export interface Package {
   _id: string;
+  updatedAt: string;
   address: string;
   receptorName: string;
   deliveryMan: string | null;

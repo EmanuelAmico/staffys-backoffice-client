@@ -41,9 +41,9 @@ const DeliveryPeople = () => {
     if (is_disabled) return "disabled";
     if (currentPackage) return "in-progress";
     if (is_able_to_deliver && pendingPackages.length !== 0) return "ready";
+    if (!is_able_to_deliver && pendingPackages.length === 0)
+      return "all-delivered";
     if (is_able_to_deliver) return "active";
-    if (pendingPackages.length === 0) return "all-delivered";
-    return null;
   };
 
   const calculatePercentage = (
@@ -53,7 +53,9 @@ const DeliveryPeople = () => {
     historyPackages: Package[]
   ) => {
     const todayPackageHistory = historyPackages.filter(
-      (_package) => _package.status === "delivered"
+      (_package) =>
+        new Date(_package.updatedAt).toLocaleString().split(",")[0] ===
+        new Date().toLocaleString().split(",")[0]
     );
 
     const countDelivered = todayPackageHistory.length;
@@ -97,6 +99,7 @@ const DeliveryPeople = () => {
                   user.pendingPackages
                 )}
                 transporterName={user.name}
+                disabled={user.is_disabled}
                 profileImage="/svg/faridProfilePicture.svg" // NOTE: Don`t forget to change image
               />
             </Link>

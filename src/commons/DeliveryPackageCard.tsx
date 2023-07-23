@@ -71,16 +71,14 @@ const DeliveryPackageCard: FC<DeliveryPackageCardProps> = ({
               <span className="text-greyText font-normal text-sm">{`${address}`}</span>
             </p>
             {trash ? (
-              <IconButton
-                onClick={handleTrashIcon}
-                icon={
+              <IconButton onClick={handleTrashIcon} {...iconProps}>
+                {
                   <BsFillTrash3Fill
                     className="fill-redIcon hover:fill-hoverRedIcon"
                     size={18}
                   />
                 }
-                {...iconProps}
-              />
+              </IconButton>
             ) : null}
           </div>
           <p className="text-greyText font-bold text-sm">

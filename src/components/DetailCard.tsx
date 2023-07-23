@@ -1,6 +1,6 @@
 "use client";
 import Button, { ButtonProps } from "../commons/Button";
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useState } from "react";
 import Image from "next/image";
 import PercentageCircle from "@/commons/PercentageCircle";
 import { useRouter } from "next/navigation";
@@ -29,6 +29,8 @@ const DetailCard: FC<DetailCardProps> = ({
 }) => {
   const { push } = useRouter();
   const { changeRefresh } = useContext(CheckRefreshContext);
+  const [loading, setLoading] = useState(false);
+
   return (
     <div
       className={`flex flex-col gap-4 shadow-md rounded-md  ${className || ""}`}
@@ -57,10 +59,12 @@ const DetailCard: FC<DetailCardProps> = ({
         </div>
       </div>
       <Button
+        loading={loading}
         className="py-[0.20rem]"
         onClick={() => {
           changeRefresh();
           push(pathButton);
+          setLoading(true);
         }}
         {...buttonProps}
       >

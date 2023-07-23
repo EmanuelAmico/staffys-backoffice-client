@@ -75,9 +75,10 @@ const DeliveryPeople = () => {
     <Layout className="gap-4">
       <IconButton
         onClick={() => (isRefreshed ? router.push("/home") : router.back())}
-        icon={<RiArrowLeftSLine size={40} />}
         className="self-start"
-      />
+      >
+        {<RiArrowLeftSLine size={40} />}
+      </IconButton>
       <Card title="Repartidores" className="grow overflow-y-hidden">
         <div className="flex flex-col gap-8 mt-5 h-[86%] overflow-y-auto">
           {deliveryPeople?.map((user) => (

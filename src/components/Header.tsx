@@ -20,8 +20,8 @@ const Header = () => {
 
   return (
     <header className="flex justify-between items-center w-full h-[60px] shadow-md relative">
-      <IconButton
-        icon={
+      <IconButton onClick={() => push("/home")}>
+        {
           <Image
             src={"/svg/motorcycle.svg"}
             alt="Moto"
@@ -31,17 +31,14 @@ const Header = () => {
             priority
           />
         }
-        onClick={() => push("/home")}
-      />
+      </IconButton>
       <p className="w-full absolute text-center text-greyText -z-10">
         FAST
         <span className="text-yellowText"> DELIVERY</span>
       </p>
-      <IconButton
-        onClick={handleLogout}
-        icon={<SlLogout size={24} />}
-        className="mx-4"
-      />
+      <IconButton onClick={handleLogout} className="mx-4">
+        {<SlLogout size={24} />}
+      </IconButton>
     </header>
   );
 };

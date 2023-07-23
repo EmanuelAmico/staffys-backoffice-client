@@ -15,6 +15,7 @@ const Login = () => {
   const { push } = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const email = useInput({
     validators: [
@@ -50,8 +51,10 @@ const Login = () => {
     };
 
     try {
+      setLoading(true);
       await dispatch(login(userData)).unwrap();
       showToast("success", "¡Usuario logueado con éxito!");
+      setLoading(false);
       push("/home");
     } catch (error) {
       console.error(error);
@@ -59,6 +62,7 @@ const Login = () => {
         return showToast("error", "Tu usuario no es admin");
       }
       showToast("error", "Credenciales inválidas");
+      setLoading(false);
     }
   };
 
@@ -92,7 +96,9 @@ const Login = () => {
           showPassword={showPassword}
           required
         />
-        <Button className="w-[100%] font-medium mt-5">Ingresar</Button>
+        <Button className="w-[100%] font-medium mt-5" loading={loading}>
+          Ingresar
+        </Button>
       </form>
     </Layout>
   );

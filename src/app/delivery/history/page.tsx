@@ -18,9 +18,10 @@ const DeliveryHistory = () => {
     <Layout>
       <IconButton
         onClick={() => (isRefreshed ? router.push("/home") : router.back())}
-        icon={<RiArrowLeftSLine size={40} />}
         className="self-start"
-      />
+      >
+        {<RiArrowLeftSLine size={40} />}
+      </IconButton>
       <div className="flex flex-col gap-6 mb-4 mt-3">
         <div className="flex flex-row gap-2 ">
           <Button className="w-11/12 ">Direccion</Button>

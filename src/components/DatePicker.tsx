@@ -97,10 +97,9 @@ const DatePicker: FC<DatePickerProps> = ({ className }) => {
         <div className="flex items-center justify-between font-bold">
           <h3 className="pl-4 pr-4">{month}</h3>
           <div className="absolute right-0">
-            <IconButton
-              icon={<BsCalendarEvent size={22} />}
-              onClick={() => handleClick(today.getDate())}
-            />
+            <IconButton onClick={() => handleClick(today.getDate())}>
+              {<BsCalendarEvent size={22} />}
+            </IconButton>
           </div>
         </div>
         <p className="font-light text-sm">{year}</p>

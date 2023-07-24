@@ -29,17 +29,19 @@ const initialState: User = {
 export const setUser = createAction<User>("SET_USER");
 export const logout = createAction("LOGOUT");
 
-export const editUserActive = createAsyncThunk(
-  "USER/EDIT",
-  async (is_active: boolean, thunkAPI) => {
-    const { user } = thunkAPI.getState() as RootState;
-    const userActive = {
-      _id: user._id,
-      is_active,
-    };
+export const toggleDisableUser = createAsyncThunk(
+  "USER/TOGGLE_DISABLE_USER",
+  async (_, thunkAPI) => {
+    const { user, selectedDeliveryMan } = thunkAPI.getState() as RootState;
 
-    const response = await UserService.editUser(user, userActive);
-    return response;
+    if (selectedDeliveryMan.is_disabled) {
+      await UserService.editUser(user, {
+        _id: selectedDeliveryMan._id,
+        is_disabled: false,
+      });
+    } else {
+      await UserService.disableUser(user, selectedDeliveryMan._id);
+    }
   }
 );
 
@@ -138,6 +140,12 @@ const userReducer = createReducer(initialState, (builder) => {
       };
     })
     .addCase(editUser.rejected, (state) => {
+      return state;
+    })
+    .addCase(toggleDisableUser.fulfilled, (state) => {
+      return state;
+    })
+    .addCase(toggleDisableUser.rejected, (state) => {
       return state;
     });
 });

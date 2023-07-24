@@ -30,7 +30,7 @@ export interface UserLogin {
   password: string;
 }
 export interface UserEditActive {
-  is_active: boolean;
+  is_disabled: boolean;
   _id: string;
 }
 

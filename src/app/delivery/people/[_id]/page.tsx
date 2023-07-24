@@ -15,13 +15,16 @@ import { showToast } from "@/utils/toast";
 
 function DetailsDeliveryMan() {
   const { _id } = useParams();
+  const router = useRouter();
+  const { isRefreshed } = useContext(CheckRefreshContext);
   const dispatch = useDispatch<AppDispatch>();
   const selectedDeliveryMan = useSelector(
     (state: RootState) => state.selectedDeliveryMan
   );
+
   const getUser = useCallback(async () => {
     try {
-      await dispatch(setSelectedDeliveryMan(_id as string)).unwrap();
+      await dispatch(setSelectedDeliveryMan(_id)).unwrap();
     } catch (error) {
       console.error(error);
       showToast("error", "Error al obtener el usuario");
@@ -31,8 +34,6 @@ function DetailsDeliveryMan() {
   useEffect(() => {
     getUser();
   }, [getUser]);
-  const router = useRouter();
-  const { isRefreshed } = useContext(CheckRefreshContext);
 
   return (
     <Layout className="gap-4">

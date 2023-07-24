@@ -1,9 +1,12 @@
+"use client";
 import Image from "next/image";
-import React, { FC, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import SwitchButton from "./SwitchButton";
-import { editUserActive } from "@/redux/reducers/user";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/redux/store";
+import { toggleDisableUser } from "@/redux/reducers/user";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/redux/store";
+import { setSelectedDeliveryMan } from "@/redux/reducers/selectedDeliveryMan";
+import { showToast } from "@/utils/toast";
 interface DeliveryManProfileProps {
   transporterName: string;
   profileImage: string;
@@ -15,16 +18,30 @@ const DeliveryManProfile: FC<DeliveryManProfileProps> = ({
   profileImage,
   className,
 }) => {
-  const [isClick, setIsClick] = useState(true);
   const dispatch = useDispatch<AppDispatch>();
+  const [loading, setLoading] = useState(false);
+  const { selectedDeliveryMan } = useSelector((state: RootState) => state);
+  const textColor = selectedDeliveryMan.is_disabled
+    ? "text-redIcon"
+    : "text-primaryBlue";
+  const backgroundColor = selectedDeliveryMan.is_disabled
+    ? "bg-redIcon"
+    : "bg-primaryBlue";
+  const statusText = selectedDeliveryMan.is_disabled
+    ? "Deshabilitado"
+    : "Habilitado";
 
-  const textColor = isClick === false ? "text-redIcon" : "text-primaryBlue";
-  const backgroundColor = isClick === false ? "bg-redIcon" : "bg-primaryBlue";
-  const statusText = isClick === false ? "Inactivo" : "Activo";
-  const handleSwitchClick = () => {
-    dispatch(editUserActive(!isClick));
-    setIsClick(!isClick);
-  };
+  const handleSwitchClick = useCallback(async () => {
+    try {
+      setLoading(true);
+      await dispatch(toggleDisableUser()).unwrap();
+      await dispatch(setSelectedDeliveryMan(selectedDeliveryMan._id)).unwrap();
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      showToast("error", "Error al cambiar el estado del usuario");
+    }
+  }, [dispatch, selectedDeliveryMan._id]);
 
   return (
     <div className={`flex items-center gap-4 ${className || ""}`}>
@@ -42,7 +59,11 @@ const DeliveryManProfile: FC<DeliveryManProfileProps> = ({
           {statusText}
         </p>
       </div>
-      <SwitchButton isSwitched={isClick} onClick={handleSwitchClick} />
+      <SwitchButton
+        disabled={loading}
+        isSwitched={!selectedDeliveryMan.is_disabled}
+        onClick={handleSwitchClick}
+      />
     </div>
   );
 };

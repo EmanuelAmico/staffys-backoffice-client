@@ -130,7 +130,11 @@ const CreatePackage = () => {
           {...deadline}
         />
         <TextInput name="city" label="Ciudad" {...city} required />
-        <Button loading={loading} className="w-[100%] font-medium mt-2">
+        <Button
+          loading={loading}
+          disabled={loading}
+          className="w-[100%] font-medium mt-2"
+        >
           Agregar
         </Button>
       </form>

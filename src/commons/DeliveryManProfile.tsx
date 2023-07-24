@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { setSelectedDeliveryMan } from "@/redux/reducers/selectedDeliveryMan";
 import { showToast } from "@/utils/toast";
+import { getDeliveryPeople } from "@/redux/reducers/delivery";
 interface DeliveryManProfileProps {
   transporterName: string;
   profileImage: string;
@@ -36,6 +37,7 @@ const DeliveryManProfile: FC<DeliveryManProfileProps> = ({
       setLoading(true);
       await dispatch(toggleDisableUser()).unwrap();
       await dispatch(setSelectedDeliveryMan(selectedDeliveryMan._id)).unwrap();
+      await dispatch(getDeliveryPeople()).unwrap();
       setLoading(false);
     } catch (error) {
       console.error(error);

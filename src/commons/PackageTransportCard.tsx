@@ -26,7 +26,7 @@ const PackageTransportCard: FC<PackageTransportCardProps> = ({
         return {
           textColor: "text-redIcon",
           backgroundColor: "bg-redIcon",
-          statusText: "desabilitado",
+          statusText: "Deshabilitado",
         };
 
       case "in-progress":

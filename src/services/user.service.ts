@@ -42,4 +42,12 @@ export class UserService {
     );
     return deliveryPeoples.data;
   }
+
+  static async disableUser(user: User, userId: string) {
+    await axios.put(`${this.apiUrl}/user/disable/${userId}`, undefined, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+  }
 }

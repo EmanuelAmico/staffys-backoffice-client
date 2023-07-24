@@ -66,7 +66,7 @@ const DeliveryPeople = () => {
 
     if (is_disabled) return 0;
     if (!countDelivered) return 0;
-    return ((countDelivered + countPending) * 100) / totalPackages;
+    return Math.floor((countDelivered * 100) / totalPackages);
   };
 
   useEffect(() => {

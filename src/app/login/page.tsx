@@ -96,7 +96,11 @@ const Login = () => {
           showPassword={showPassword}
           required
         />
-        <Button className="w-[100%] font-medium mt-5" loading={loading}>
+        <Button
+          className="w-[100%] font-medium mt-5"
+          loading={loading}
+          disabled={loading}
+        >
           Ingresar
         </Button>
       </form>

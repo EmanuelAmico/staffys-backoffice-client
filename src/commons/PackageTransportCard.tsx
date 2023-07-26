@@ -5,7 +5,13 @@ import { RiForbidLine } from "react-icons/ri";
 
 interface PackageTransportCardProps {
   percentage: number;
-  status?: "in-progress" | "all-delivered" | "disabled" | "active" | "ready";
+  status?:
+    | "in-progress"
+    | "all-delivered"
+    | "disabled"
+    | "active"
+    | "ready"
+    | "unable";
   transporterName: string;
   profileImage: string;
   disabled?: boolean;
@@ -24,44 +30,44 @@ const PackageTransportCard: FC<PackageTransportCardProps> = ({
     switch (status) {
       case "disabled":
         return {
-          textColor: "text-redIcon",
-          backgroundColor: "bg-redIcon",
+          textColor: "text-redText",
+          pointColor: "bg-redText",
           statusText: "Deshabilitado",
+        };
+
+      case "unable":
+        return {
+          textColor: "text-salmonText",
+          pointColor: "bg-salmonText",
+          statusText: "Incapaz para repartir",
         };
 
       case "in-progress":
         return {
-          textColor: "text-primaryBlue",
-          backgroundColor: "bg-primaryBlue",
+          textColor: "text-blueText",
+          pointColor: "bg-blueText",
           statusText: "Viaje en curso",
         };
 
       case "active":
         return {
           textColor: "text-greyText",
-          backgroundColor: "bg-greyText",
+          pointColor: "bg-greyText",
           statusText: "Activo",
         };
 
       case "ready":
         return {
           textColor: "text-yellowText",
-          backgroundColor: "bg-yellowBackground",
+          pointColor: "bg-yellowText",
           statusText: "Preparado para repartir",
         };
 
       case "all-delivered":
         return {
           textColor: "text-greenText",
-          backgroundColor: "bg-greenText",
+          pointColor: "bg-greenText",
           statusText: "Finalizó",
-        };
-
-      default:
-        return {
-          textColor: "",
-          backgroundColor: "",
-          statusText: "",
         };
     }
   })();
@@ -78,12 +84,12 @@ const PackageTransportCard: FC<PackageTransportCardProps> = ({
       <div className="flex flex-col gap-2 ml-2 grow">
         <p className="font-bold text-base">{transporterName}</p>
         <p
-          className={`font-medium text-sm ${handleStatus.textColor} flex items-center`}
+          className={`font-medium text-sm ${handleStatus?.textColor} flex items-center`}
         >
           <span
-            className={`mr-1 h-2 w-2 rounded-full ${handleStatus.backgroundColor}`}
+            className={`mr-1 h-2 w-2 rounded-full ${handleStatus?.pointColor}`}
           />
-          {handleStatus.statusText}
+          {handleStatus?.statusText}
         </p>
       </div>
       <Image

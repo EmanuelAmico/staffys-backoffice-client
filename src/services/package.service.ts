@@ -3,6 +3,17 @@ import { PackageBody } from "@/types/package.types";
 
 export class PackageService {
   static apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  static async getPackageById(_id: string | string[]) {
+    const foundPackage = await axios.get(
+      `${this.apiUrl}/package/find-package/${_id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+        },
+      }
+    );
+    return foundPackage.data;
+  }
 
   static async createPackage(packageData: PackageBody) {
     const { address, receptorName, weight, deadline, city } = packageData;

@@ -4,10 +4,9 @@ import Button from "@/commons/Button";
 import IconButton from "@/commons/IconButton";
 import Layout from "@/commons/Layout";
 import TextInput from "@/commons/TextInput";
-import React, { FormEvent, useContext, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { useRouter } from "next/navigation";
-import { CheckRefreshContext } from "@/context/refresh";
 import useInput from "@/hooks/useInput";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
@@ -16,7 +15,7 @@ import { showToast } from "@/utils/toast";
 
 const CreatePackage = () => {
   const router = useRouter();
-  const { isRefreshed } = useContext(CheckRefreshContext);
+
   const { push } = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const [loading, setLoading] = useState(false);
@@ -92,7 +91,7 @@ const CreatePackage = () => {
   return (
     <Layout>
       <IconButton
-        onClick={() => (isRefreshed ? router.push("/home") : router.back())}
+        onClick={() => router.push("/package/manage")}
         className="self-start"
       >
         {<RiArrowLeftSLine size={40} />}

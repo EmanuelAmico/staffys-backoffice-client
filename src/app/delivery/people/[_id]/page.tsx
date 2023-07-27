@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useContext } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedDeliveryMan } from "@/redux/reducers/selectedDeliveryMan";
@@ -10,13 +10,11 @@ import Layout from "@/commons/Layout";
 import IconButton from "@/commons/IconButton";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import DeliveryManProfile from "@/commons/DeliveryManProfile";
-import { CheckRefreshContext } from "@/context/refresh";
 import { showToast } from "@/utils/toast";
 
 function DetailsDeliveryMan() {
   const { _id } = useParams();
   const router = useRouter();
-  const { isRefreshed } = useContext(CheckRefreshContext);
   const dispatch = useDispatch<AppDispatch>();
   const selectedDeliveryMan = useSelector(
     (state: RootState) => state.selectedDeliveryMan
@@ -38,7 +36,7 @@ function DetailsDeliveryMan() {
   return (
     <Layout className="gap-4">
       <IconButton
-        onClick={() => (isRefreshed ? router.push("/home") : router.back())}
+        onClick={() => router.push("/delivery/people")}
         className="self-start"
       >
         {<RiArrowLeftSLine size={40} />}

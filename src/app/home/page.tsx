@@ -63,13 +63,17 @@ const Home = () => {
           pathButton="/delivery/people"
         />
         <DetailCard
-          percentage={Math.round(
-            (selectedHistory.targetPackages.filter(
-              (p) => p.status === "delivered"
-            ).length *
-              100) /
-              selectedHistory.targetPackages.length
-          )}
+          percentage={
+            selectedHistory.targetPackages.length >= 1
+              ? Math.round(
+                  (selectedHistory.targetPackages.filter(
+                    (p) => p.status === "delivered"
+                  ).length *
+                    100) /
+                    selectedHistory.targetPackages.length
+                )
+              : 0
+          }
           title="Paquetes"
           description={`${
             selectedHistory.targetPackages.filter(

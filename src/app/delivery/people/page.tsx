@@ -34,13 +34,21 @@ const DeliveryPeople = () => {
     is_disabled: boolean,
     is_able_to_deliver: boolean,
     currentPackage: Package | null,
-    pendingPackages: Package[]
+    pendingPackages: Package[],
+    historyPackages: Package[]
   ) => {
     if (is_disabled) return "disabled";
     if (currentPackage) return "in-progress";
     if (is_able_to_deliver && pendingPackages.length !== 0) return "ready";
-    if (!is_able_to_deliver && pendingPackages.length === 0)
-      return "all-delivered";
+    if (!is_able_to_deliver && pendingPackages.length === 0) {
+      const todayPackageHistory = historyPackages.filter(
+        (_package) =>
+          new Date(_package.updatedAt).toLocaleString().split(",")[0] ===
+          new Date().toLocaleString().split(",")[0]
+      );
+      if (todayPackageHistory.length !== 0) return "all-delivered";
+      else return "unable";
+    }
     if (is_able_to_deliver) return "active";
   };
 
@@ -91,7 +99,8 @@ const DeliveryPeople = () => {
                   user.is_disabled,
                   user.is_able_to_deliver,
                   user.currentPackage,
-                  user.pendingPackages
+                  user.pendingPackages,
+                  user.historyPackages
                 )}
                 transporterName={user.name}
                 disabled={user.is_disabled}

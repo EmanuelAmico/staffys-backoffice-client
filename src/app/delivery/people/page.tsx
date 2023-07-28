@@ -3,11 +3,10 @@
 import IconButton from "@/commons/IconButton";
 import Layout from "@/commons/Layout";
 import { RiArrowLeftSLine } from "react-icons/ri";
-import React, { useCallback, useContext, useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Card from "@/commons/Card";
 import PackageTransportCard from "@/commons/PackageTransportCard";
-import { CheckRefreshContext } from "@/context/refresh";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { getDeliveryPeople } from "@/redux/reducers/delivery";
@@ -17,7 +16,6 @@ import Link from "next/link";
 
 const DeliveryPeople = () => {
   const router = useRouter();
-  const { isRefreshed } = useContext(CheckRefreshContext);
   const dispatch = useDispatch<AppDispatch>();
   const deliveryPeople = useSelector(
     (state: RootState) => state.delivery.deliveryPeople
@@ -75,10 +73,7 @@ const DeliveryPeople = () => {
 
   return (
     <Layout className="gap-4">
-      <IconButton
-        onClick={() => (isRefreshed ? router.push("/home") : router.back())}
-        className="self-start"
-      >
+      <IconButton onClick={() => router.push("/home")} className="self-start">
         {<RiArrowLeftSLine size={40} />}
       </IconButton>
       <Card title="Repartidores" className="grow overflow-y-hidden">

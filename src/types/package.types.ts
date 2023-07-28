@@ -7,12 +7,10 @@ export interface Package {
   weight: number | null;
   deliveredAt: Date | null;
   status: "taken" | "in_progress" | "delivered" | null;
-  deadline: Date;
+  deadline: Date | null;
   city: string;
-  coordinates?: {
-    lat: number;
-    lng: number;
-  } | null;
+  coordinatesPackage: { lat: number; lng: number };
+  coordinatesUser?: { lat: number; lng: number };
   distance?: number | null;
 }
 

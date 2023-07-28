@@ -1,26 +1,9 @@
 import { createAsyncThunk, createReducer } from "@reduxjs/toolkit";
 import { PackageService } from "@/services/package.service";
-type Package = {
-  _id: string;
-  title: string;
-  description: string;
-  address: string;
-  receptorName: string;
-  deliveryMan: null | string;
-  weight: null | number;
-  deliveredAt: null | Date;
-  status: null | "taken" | "in_progress" | "delivered";
-  deadline: Date | null;
-  city: string;
-  coordinatesPackage: { lat: number; lng: number };
-  coordinatesUser: { lat: number; lng: number };
-  distance: null | number;
-};
+import { Package } from "@/types/package.types";
 
 const initialState: Package = {
   _id: "",
-  title: "",
-  description: "",
   address: "",
   receptorName: "",
   deliveryMan: "",
@@ -32,6 +15,7 @@ const initialState: Package = {
   coordinatesPackage: { lat: 0, lng: 0 },
   coordinatesUser: { lat: 0, lng: 0 },
   distance: null,
+  updatedAt: "",
 };
 
 export const fetchPackageById = createAsyncThunk(

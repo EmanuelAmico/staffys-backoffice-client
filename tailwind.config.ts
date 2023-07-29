@@ -15,6 +15,7 @@ export default {
         activeBlue: "#1D4ED8",
         whiteText: "#FFFFFF",
         blackText: "#000000",
+        blueText: "#2563EB",
         yellowText: "#FCBC12",
         salmonText: "#FF6B6B",
         greyText: "#4F4F4F",

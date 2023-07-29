@@ -16,7 +16,7 @@ import { getAvailablePackages } from "@/redux/reducers/package";
 const ManagePackages = () => {
   const router = useRouter();
   const { push } = useRouter();
-  const { changeRefresh, isRefreshed } = useContext(CheckRefreshContext);
+  const { changeRefresh } = useContext(CheckRefreshContext);
   const dispatch = useDispatch<AppDispatch>();
   const availablePackages = useSelector(
     (state: RootState) => state.package.availablePackages
@@ -38,10 +38,7 @@ const ManagePackages = () => {
 
   return (
     <Layout>
-      <IconButton
-        onClick={() => (isRefreshed ? router.push("/home") : router.back())}
-        className="self-start"
-      >
+      <IconButton onClick={() => router.push("/home")} className="self-start">
         {<RiArrowLeftSLine size={40} />}
       </IconButton>
       <div className="flex justify-between items-center">

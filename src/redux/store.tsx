@@ -7,6 +7,7 @@ import deliveryReducer from "./reducers/delivery";
 import packageReducer from "./reducers/package";
 import selectedHistoryReducer from "./reducers/selectedHistory";
 import historiesReducer from "./reducers/histories";
+import selectedPackageReducer from "./reducers/selectedPackage";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     package: packageReducer,
     histories: historiesReducer,
     selectedHistory: selectedHistoryReducer,
+    selectedPackage: selectedPackageReducer,
   },
 });
 

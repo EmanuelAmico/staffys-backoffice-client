@@ -15,6 +15,7 @@ import { getAvailablePackages } from "@/redux/reducers/package";
 
 const ManagePackages = () => {
   const router = useRouter();
+  const { push } = useRouter();
   const { changeRefresh } = useContext(CheckRefreshContext);
   const dispatch = useDispatch<AppDispatch>();
   const availablePackages = useSelector(
@@ -71,6 +72,10 @@ const ManagePackages = () => {
               buttonText=""
               city={_package.city}
               trash={true}
+              onClick={() => {
+                changeRefresh();
+                push(`package/description/${_package._id}`);
+              }}
             />
             {_package !== availablePackages.at(-1) && <hr className="mb-4" />}
           </div>

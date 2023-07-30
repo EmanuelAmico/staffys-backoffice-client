@@ -2,6 +2,7 @@ import { PackageService } from "@/services/package.service";
 import { PackageBody, initialStatePackage } from "@/types/package.types";
 import { createAsyncThunk, createReducer } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { resetStore } from "./user";
 
 const initialState: initialStatePackage = {
   availablePackages: [],
@@ -40,6 +41,9 @@ export const getAvailablePackages = createAsyncThunk(
 
 const packageReducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(resetStore, () => {
+      return initialState;
+    })
     .addCase(createPackages.fulfilled, (_state, _action) => {
       return;
     })

@@ -146,6 +146,7 @@ const DatePicker: FC<DatePickerProps> = ({ className }) => {
                 setDate(today);
                 setSelectedDate(today);
                 setDaysOfCurrentMonth(calculateDaysOfCurrentMonth(today));
+                handleClick(today.getDate());
               }}
             >
               <BsCalendarEvent size={22} />

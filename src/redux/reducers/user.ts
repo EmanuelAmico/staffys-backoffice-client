@@ -27,7 +27,7 @@ const initialState: User = {
 };
 
 export const setUser = createAction<User>("SET_USER");
-export const logout = createAction("LOGOUT");
+export const resetStore = createAction("RESET_STORE");
 
 export const toggleDisableUser = createAsyncThunk(
   "USER/TOGGLE_DISABLE_USER",
@@ -101,8 +101,7 @@ const userReducer = createReducer(initialState, (builder) => {
         ...action.payload,
       };
     })
-    .addCase(logout, () => {
-      localStorage.removeItem("token");
+    .addCase(resetStore, () => {
       return initialState;
     })
     .addCase(login.fulfilled, (state, action: PayloadAction<User>) => {

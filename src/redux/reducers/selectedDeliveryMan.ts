@@ -5,6 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 import { UserService } from "@/services/user.service";
 import { User } from "@/types/user.types";
+import { resetStore } from "./user";
 
 const initialState: Omit<User, "token"> = {
   _id: "",
@@ -32,6 +33,9 @@ export const setSelectedDeliveryMan = createAsyncThunk(
 
 const selectedDeliveryManReducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(resetStore, () => {
+      return initialState;
+    })
     .addCase(
       setSelectedDeliveryMan.fulfilled,
       (_state, action: PayloadAction<User>) => {

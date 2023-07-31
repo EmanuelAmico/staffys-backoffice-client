@@ -6,6 +6,7 @@ import {
 import { PopulatedHistory } from "@/types/history.types";
 import { HistoryService } from "@/services/history.service";
 import { RootState } from "../store";
+import { resetStore } from "./user";
 
 const initialState: PopulatedHistory = {
   _id: "",
@@ -37,15 +38,19 @@ export const getOrCreateTodayHistory = createAsyncThunk(
 );
 
 const selectedHistoryReducer = createReducer(initialState, (builder) => {
-  builder.addCase(
-    getHistoryByDate.fulfilled,
-    (state, action: PayloadAction<PopulatedHistory>) => {
-      return {
-        ...state,
-        ...action.payload,
-      };
-    }
-  );
+  builder
+    .addCase(resetStore, () => {
+      return initialState;
+    })
+    .addCase(
+      getHistoryByDate.fulfilled,
+      (state, action: PayloadAction<PopulatedHistory>) => {
+        return {
+          ...state,
+          ...action.payload,
+        };
+      }
+    );
   builder.addCase(
     getOrCreateTodayHistory.fulfilled,
     (state, action: PayloadAction<PopulatedHistory>) => {

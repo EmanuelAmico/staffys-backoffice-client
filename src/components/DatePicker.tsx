@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import DateBulletItem from "@/commons/DateBulletItem";
 import IconButton from "@/commons/IconButton";
 import { BsCalendarEvent } from "react-icons/bs";
@@ -33,51 +33,57 @@ const DatePicker: FC<DatePickerProps> = ({ className }) => {
     .map((char, index) => (index === 0 ? char.toUpperCase() : char))
     .join("");
   const year = date.getFullYear();
-  const weekDays = ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sáb"];
-  const calculateDaysOfCurrentMonth = (currentDate: Date) => {
-    const daysOfCurrentMonth: {
-      day: number;
-      weekDay: string;
-      selected: boolean;
-      disabled: boolean;
-    }[] = [];
+  const weekDays = useMemo(
+    () => ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sáb"],
+    []
+  );
+  const calculateDaysOfCurrentMonth = useCallback(
+    (currentDate: Date) => {
+      const daysOfCurrentMonth: {
+        day: number;
+        weekDay: string;
+        selected: boolean;
+        disabled: boolean;
+      }[] = [];
 
-    const monthDays = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth() + 1,
-      0
-    ).getDate();
-
-    for (let day = 1; day <= monthDays; day++) {
-      const _date = new Date(
+      const monthDays = new Date(
         currentDate.getFullYear(),
-        currentDate.getMonth(),
-        day
-      );
-      const index = _date.getDay();
-      const ISODate = new Date(
-        _date.getFullYear(),
-        _date.getMonth(),
-        _date.getDate()
-      ).toISOString();
+        currentDate.getMonth() + 1,
+        0
+      ).getDate();
 
-      const history = histories.find(
-        (history) => history.date.split("T")[0] === ISODate.split("T")[0]
-      );
+      for (let day = 1; day <= monthDays; day++) {
+        const _date = new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth(),
+          day
+        );
+        const index = _date.getDay();
+        const ISODate = new Date(
+          _date.getFullYear(),
+          _date.getMonth(),
+          _date.getDate()
+        ).toISOString();
 
-      daysOfCurrentMonth.push({
-        day,
-        weekDay: weekDays[index],
-        selected:
-          day === selectedDate.getDate() &&
-          selectedDate.getMonth() === currentDate.getMonth() &&
-          selectedDate.getFullYear() === currentDate.getFullYear(),
-        disabled: !history,
-      });
-    }
+        const history = histories.find(
+          (history) => history.date.split("T")[0] === ISODate.split("T")[0]
+        );
 
-    return daysOfCurrentMonth;
-  };
+        daysOfCurrentMonth.push({
+          day,
+          weekDay: weekDays[index],
+          selected:
+            selectedDate.getDate() === day &&
+            selectedDate.getMonth() === currentDate.getMonth() &&
+            selectedDate.getFullYear() === currentDate.getFullYear(),
+          disabled: !history,
+        });
+      }
+
+      return daysOfCurrentMonth;
+    },
+    [histories, selectedDate, weekDays]
+  );
   const [daysOfCurrentMonth, setDaysOfCurrentMonth] = useState<
     { day: number; weekDay: string; selected: boolean; disabled: boolean }[]
   >(calculateDaysOfCurrentMonth(date));
@@ -127,6 +133,10 @@ const DatePicker: FC<DatePickerProps> = ({ className }) => {
     setDaysOfCurrentMonth(calculateDaysOfCurrentMonth(newDate));
   };
 
+  useEffect(() => {
+    setDaysOfCurrentMonth(calculateDaysOfCurrentMonth(date));
+  }, [calculateDaysOfCurrentMonth, date]);
+
   return (
     <div className={`${className || ""}`}>
       <div className="flex flex-col items-center justify-center pb-3 relative">
@@ -140,13 +150,22 @@ const DatePicker: FC<DatePickerProps> = ({ className }) => {
           </IconButton>
           <div className="absolute right-0">
             <IconButton
-              onClick={() => {
+              onClick={async () => {
                 const today = new Date();
-                today.setHours(0, 0, 0, 0);
-                setDate(today);
+                await handleClick(today.getDate());
+                const firstDayOfMonth = new Date(
+                  today.getFullYear(),
+                  today.getMonth(),
+                  1
+                );
+                firstDayOfMonth.setHours(0, 0, 0, 0);
+                setDate(firstDayOfMonth);
                 setSelectedDate(today);
-                setDaysOfCurrentMonth(calculateDaysOfCurrentMonth(today));
-                handleClick(today.getDate());
+
+                const newDaysOfCurrentMonth =
+                  calculateDaysOfCurrentMonth(today);
+                newDaysOfCurrentMonth[today.getDate() - 1].selected = true;
+                setDaysOfCurrentMonth(newDaysOfCurrentMonth);
               }}
             >
               <BsCalendarEvent size={22} />

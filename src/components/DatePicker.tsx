@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { showToast } from "@/utils/toast";
 import { getHistoryByDate } from "@/redux/reducers/selectedHistory";
+import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
 
 export interface DatePickerProps {
   className?: string;
@@ -17,21 +18,23 @@ const DatePicker: FC<DatePickerProps> = ({ className }) => {
     (state: RootState) => state
   );
   const dispatch = useDispatch<AppDispatch>();
-  const today = new Date();
-  const month = today
+  const [date, setDate] = useState(() => {
+    const today = new Date();
+    const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    firstDayOfMonth.setHours(0, 0, 0, 0);
+    return firstDayOfMonth;
+  });
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const month = date
     .toLocaleString("es-AR", {
       month: "long",
     })
     .split("")
     .map((char, index) => (index === 0 ? char.toUpperCase() : char))
     .join("");
-  const year = today.getFullYear();
-  const currentDate = today.toDateString();
-  const monthDays = new Date(year, today.getMonth() - 1, 0).getDate();
+  const year = date.getFullYear();
   const weekDays = ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sáb"];
-  const [daysOfCurrentMonth, setDaysOfCurrentMonth] = useState<
-    { day: number; weekDay: string; selected: boolean; disabled: boolean }[]
-  >(() => {
+  const calculateDaysOfCurrentMonth = (currentDate: Date) => {
     const daysOfCurrentMonth: {
       day: number;
       weekDay: string;
@@ -39,13 +42,23 @@ const DatePicker: FC<DatePickerProps> = ({ className }) => {
       disabled: boolean;
     }[] = [];
 
+    const monthDays = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+      0
+    ).getDate();
+
     for (let day = 1; day <= monthDays; day++) {
-      const date = new Date(year, today.getMonth(), day);
-      const index = date.getDay();
+      const _date = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        day
+      );
+      const index = _date.getDay();
       const ISODate = new Date(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate()
+        _date.getFullYear(),
+        _date.getMonth(),
+        _date.getDate()
       ).toISOString();
 
       const history = histories.find(
@@ -55,13 +68,19 @@ const DatePicker: FC<DatePickerProps> = ({ className }) => {
       daysOfCurrentMonth.push({
         day,
         weekDay: weekDays[index],
-        selected: currentDate.slice(8) === `${day} ${year}`,
+        selected:
+          day === selectedDate.getDate() &&
+          selectedDate.getMonth() === currentDate.getMonth() &&
+          selectedDate.getFullYear() === currentDate.getFullYear(),
         disabled: !history,
       });
     }
 
     return daysOfCurrentMonth;
-  });
+  };
+  const [daysOfCurrentMonth, setDaysOfCurrentMonth] = useState<
+    { day: number; weekDay: string; selected: boolean; disabled: boolean }[]
+  >(calculateDaysOfCurrentMonth(date));
 
   const handleClick = useCallback(
     async (clickedDay: number) => {
@@ -75,6 +94,11 @@ const DatePicker: FC<DatePickerProps> = ({ className }) => {
               .join("-")}T${selectedHistory.date.split("T")[1]}`
           )
         ).unwrap();
+
+        setSelectedDate(
+          new Date(date.getFullYear(), date.getMonth(), clickedDay)
+        );
+
         setDaysOfCurrentMonth((daysOfCurrentMonth) =>
           daysOfCurrentMonth.map(({ day, weekDay, disabled }) => ({
             day,
@@ -88,17 +112,43 @@ const DatePicker: FC<DatePickerProps> = ({ className }) => {
         showToast("error", "Se produjo un error al seleccionar el día");
       }
     },
-    [dispatch, selectedHistory.date]
+    [dispatch, selectedHistory.date, date]
   );
+
+  const handleClickNextMonth = () => {
+    const newDate = new Date(year, date.getMonth() + 1, 1);
+    setDate(newDate);
+    setDaysOfCurrentMonth(calculateDaysOfCurrentMonth(newDate));
+  };
+
+  const handleClickPreviousMonth = () => {
+    const newDate = new Date(year, date.getMonth() - 1, 1);
+    setDate(newDate);
+    setDaysOfCurrentMonth(calculateDaysOfCurrentMonth(newDate));
+  };
 
   return (
     <div className={`${className || ""}`}>
       <div className="flex flex-col items-center justify-center pb-3 relative">
         <div className="flex items-center justify-between font-bold">
+          <IconButton onClick={handleClickPreviousMonth}>
+            <RiArrowLeftSLine size={30} />
+          </IconButton>
           <h3 className="pl-4 pr-4">{month}</h3>
+          <IconButton onClick={handleClickNextMonth}>
+            <RiArrowRightSLine size={30} />
+          </IconButton>
           <div className="absolute right-0">
-            <IconButton onClick={() => handleClick(today.getDate())}>
-              {<BsCalendarEvent size={22} />}
+            <IconButton
+              onClick={() => {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                setDate(today);
+                setSelectedDate(today);
+                setDaysOfCurrentMonth(calculateDaysOfCurrentMonth(today));
+              }}
+            >
+              <BsCalendarEvent size={22} />
             </IconButton>
           </div>
         </div>

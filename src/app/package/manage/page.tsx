@@ -74,7 +74,7 @@ const ManagePackages = () => {
               trash={true}
               onClick={() => {
                 changeRefresh();
-                push(`package/description/${_package._id}`);
+                push(`/package/description/${_package._id}`);
               }}
             />
             {_package !== availablePackages.at(-1) && <hr className="mb-4" />}

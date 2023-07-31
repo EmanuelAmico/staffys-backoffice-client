@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from "react";
+import React, { FC, KeyboardEvent, MouseEvent, useCallback } from "react";
 import { ButtonProps } from "./Button";
 import IconButton, { IconButtonProps } from "./IconButton";
 import Image from "next/image";
@@ -13,7 +13,9 @@ interface DeliveryPackageCardProps {
   buttonProps?: ButtonProps;
   iconProps?: IconButtonProps;
   className?: string;
-  onClick?: () => void;
+  onClick?: (
+    e: MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>
+  ) => void;
   _id?: string;
   address?: string;
   receptorName?: string;
@@ -41,9 +43,14 @@ const DeliveryPackageCard: FC<DeliveryPackageCardProps> = ({
   onClick,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const handleTrashIcon = useCallback(async () => {
-    dispatch(detelePackageById(_id as string));
-  }, [_id, dispatch]);
+
+  const handleTrashIcon = useCallback(
+    async (e: MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+      await dispatch(detelePackageById(_id as string)).unwrap();
+    },
+    [_id, dispatch]
+  );
 
   return (
     <div
@@ -51,7 +58,7 @@ const DeliveryPackageCard: FC<DeliveryPackageCardProps> = ({
       onClick={onClick}
       tabIndex={0}
       role="button"
-      onKeyDown={(e) => e.key === "Enter" && onClick && onClick()}
+      onKeyDown={(e) => e.key === "Enter" && onClick && onClick(e)}
     >
       <div className="flex items-center gap-3 p-3">
         <div className="flex items-center justify-center bg-grayBackground h-24 w-24 rounded-lg">

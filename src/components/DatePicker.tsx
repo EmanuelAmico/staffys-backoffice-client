@@ -17,6 +17,23 @@ const DatePicker: FC<DatePickerProps> = ({ className }) => {
   const { histories, selectedHistory } = useSelector(
     (state: RootState) => state
   );
+  const monthNames = useMemo(
+    () => [
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre",
+    ],
+    []
+  );
   const dispatch = useDispatch<AppDispatch>();
   const [date, setDate] = useState(() => {
     const today = new Date();
@@ -37,6 +54,7 @@ const DatePicker: FC<DatePickerProps> = ({ className }) => {
     () => ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sáb"],
     []
   );
+
   const calculateDaysOfCurrentMonth = useCallback(
     (currentDate: Date) => {
       const daysOfCurrentMonth: {
@@ -91,12 +109,21 @@ const DatePicker: FC<DatePickerProps> = ({ className }) => {
   const handleClick = useCallback(
     async (clickedDay: number) => {
       try {
+        const formattedDay = clickedDay.toString().padStart(2, "0");
+        const monthNumber = monthNames.indexOf(month) + 1;
+
         await dispatch(
           getHistoryByDate(
             `${selectedHistory.date
               .split("T")[0]
               .split("-")
-              .map((yearMonthDay, i) => (i === 2 ? clickedDay : yearMonthDay))
+              .map((yearMonthDay, i) =>
+                i === 2
+                  ? formattedDay
+                  : i === 1
+                  ? monthNumber.toString().padStart(2, "0")
+                  : yearMonthDay
+              )
               .join("-")}T${selectedHistory.date.split("T")[1]}`
           )
         ).unwrap();
@@ -118,7 +145,7 @@ const DatePicker: FC<DatePickerProps> = ({ className }) => {
         showToast("error", "Se produjo un error al seleccionar el día");
       }
     },
-    [dispatch, selectedHistory.date, date]
+    [dispatch, selectedHistory.date, date, month, monthNames]
   );
 
   const handleClickNextMonth = () => {

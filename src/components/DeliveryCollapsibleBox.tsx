@@ -83,9 +83,9 @@ const DeliveryCollapsibleBox: FC<DeliveryCollapsibleBoxProps> = ({
                         ? "in_progress"
                         : null
                     }
-                    onClick={() =>
-                      push(`package/description/${deliveryPackage._id}`)
-                    }
+                    onClick={() => {
+                      push(`/package/description/${deliveryPackage._id}`);
+                    }}
                   />
                   {deliveryPackage !== packages.at(-1) && (
                     <hr className="mb-4" />

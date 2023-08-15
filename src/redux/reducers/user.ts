@@ -24,6 +24,7 @@ const initialState: User = {
   currentPackage: null,
   historyPackages: [],
   token: "",
+  urlpicture: null,
 };
 
 export const setUser = createAction<User>("SET_USER");
@@ -93,6 +94,21 @@ export const editUser = createAsyncThunk(
   }
 );
 
+export const loadProfilePicture = createAsyncThunk(
+  "USER/LOAD_PROFILE_PHOTO",
+  async (obj: { formData: FormData; _id: string }) => {
+    await AuthService.loadProfilePicture(obj.formData, obj._id);
+  }
+);
+
+export const getProfilePicture = createAsyncThunk(
+  "USER/GET_PROFILE_PHOTO",
+  async (_id: string) => {
+    const token = localStorage.getItem("token") as string;
+    return await AuthService.getProfilePicture(token, _id);
+  }
+);
+
 const userReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setUser, (state, action: PayloadAction<User>) => {
@@ -145,6 +161,18 @@ const userReducer = createReducer(initialState, (builder) => {
       return state;
     })
     .addCase(toggleDisableUser.rejected, (state) => {
+      return state;
+    })
+    .addCase(loadProfilePicture.fulfilled, (state) => {
+      return state;
+    })
+    .addCase(loadProfilePicture.rejected, (state) => {
+      return state;
+    })
+    .addCase(getProfilePicture.fulfilled, (state, action) => {
+      return { ...state, urlprofilephoto: action.payload };
+    })
+    .addCase(getProfilePicture.rejected, (state) => {
       return state;
     });
 });

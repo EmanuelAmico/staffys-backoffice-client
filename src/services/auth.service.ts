@@ -26,4 +26,21 @@ export class AuthService {
 
     return data;
   }
+  static async loadProfilePicture(formData: FormData, _id: string) {
+    return await axios.post(
+      `${this.apiUrl}/user/load-profile-picture/${_id}`,
+      formData
+    );
+  }
+  static async getProfilePicture(token: string, _id: string) {
+    const { data } = await axios.get(
+      `${this.apiUrl}/user/get-profile-picture/${_id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return data.data;
+  }
 }

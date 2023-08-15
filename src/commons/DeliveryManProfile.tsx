@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import SwitchButton from "./SwitchButton";
 import { toggleDisableUser } from "@/redux/reducers/user";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,11 +45,16 @@ const DeliveryManProfile: FC<DeliveryManProfileProps> = ({
     }
   }, [dispatch, selectedDeliveryMan._id]);
 
+  const [picture, setPicture] = useState(profileImage);
+  useEffect(() => {
+    setPicture(profileImage);
+  }, [profileImage]);
   return (
     <div className={`flex items-center gap-4 ${className || ""}`}>
       <Image
+        onError={() => setPicture("/images/userIcon.jpg")}
         alt="imagen de perfil"
-        src={profileImage}
+        src={picture}
         width={54}
         height={54}
         className="rounded-full"

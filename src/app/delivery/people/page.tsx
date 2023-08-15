@@ -9,10 +9,14 @@ import Card from "@/commons/Card";
 import PackageTransportCard from "@/commons/PackageTransportCard";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
-import { getDeliveryPeople } from "@/redux/reducers/delivery";
+import {
+  getDeliveryPeople,
+  setDeliveryPeople,
+} from "@/redux/reducers/delivery";
 import { showToast } from "@/utils/toast";
 import { Package } from "@/types/package.types";
 import Link from "next/link";
+import { AuthService } from "@/services/auth.service";
 
 const DeliveryPeople = () => {
   const router = useRouter();
@@ -75,10 +79,42 @@ const DeliveryPeople = () => {
     return Math.floor((countDelivered * 100) / totalPackages);
   };
 
+  const getProfilePictures = useCallback(async () => {
+    try {
+      if (!(deliveryPeople.length > 0)) {
+        return;
+      }
+      const token = window.localStorage.getItem("token");
+      const deliveryPeopleWithUrlPhotos = await deliveryPeople.map(
+        async (element) => {
+          if (!(typeof token === "string")) {
+            throw new Error("No se reconoció el formato del token");
+          }
+          const urlPhotoS3 = await AuthService.getProfilePicture(
+            token,
+            element._id
+          );
+          return {
+            ...element,
+            urlpicture: urlPhotoS3,
+          };
+        }
+      );
+      const complete = await Promise.all(deliveryPeopleWithUrlPhotos);
+      dispatch(setDeliveryPeople({ deliveryPeople: complete }));
+    } catch (error) {
+      console.error(error);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deliveryPeople.length, dispatch]);
+
+  useEffect(() => {
+    getProfilePictures();
+  }, [getProfilePictures]);
+
   useEffect(() => {
     retrieveDeliveryPeople();
   }, [retrieveDeliveryPeople]);
-
   return (
     <Layout className="gap-4">
       <IconButton onClick={() => router.push("/home")} className="self-start">
@@ -104,7 +140,9 @@ const DeliveryPeople = () => {
                 )}
                 transporterName={user.name}
                 disabled={user.is_disabled}
-                profileImage="/svg/faridProfilePicture.svg" // NOTE: Don`t forget to change image
+                profileImage={
+                  user.urlpicture ? user.urlpicture : "/images/urlIcon.jpg"
+                }
               />
             </Link>
           ))}

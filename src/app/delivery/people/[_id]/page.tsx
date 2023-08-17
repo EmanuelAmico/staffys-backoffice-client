@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedDeliveryMan } from "@/redux/reducers/selectedDeliveryMan";
@@ -10,6 +10,7 @@ import IconButton from "@/commons/IconButton";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import DeliveryManProfile from "@/commons/DeliveryManProfile";
 import { showToast } from "@/utils/toast";
+import { AuthService } from "@/services/auth.service";
 
 function DetailsDeliveryMan() {
   const { _id } = useParams();
@@ -18,10 +19,17 @@ function DetailsDeliveryMan() {
   const selectedDeliveryMan = useSelector(
     (state: RootState) => state.selectedDeliveryMan
   );
-
+  const [profilePicture, setProfilePicture] = useState<string>(
+    "/images/userIcon.jpg"
+  );
   const getUser = useCallback(async () => {
     try {
       await dispatch(setSelectedDeliveryMan(_id as string)).unwrap();
+      const token = window.localStorage.getItem("token");
+      if (typeof token === "string" && typeof _id === "string") {
+        const urlpicture = await AuthService.getProfilePicture(token, _id);
+        setProfilePicture(urlpicture);
+      }
     } catch (error) {
       console.error(error);
       showToast("error", "Error al obtener el usuario");
@@ -42,7 +50,7 @@ function DetailsDeliveryMan() {
       </IconButton>
       <DeliveryManProfile
         transporterName={selectedDeliveryMan.name}
-        profileImage="/svg/faridProfilePicture.svg"
+        profileImage={profilePicture}
       />
       <DeliveryCollapsibleBox
         title="Repartos pendientes"

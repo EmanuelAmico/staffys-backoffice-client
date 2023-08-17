@@ -24,6 +24,7 @@ export interface User {
   currentPackage: Package | null;
   historyPackages: Package[];
   token: string;
+  urlpicture: string | null;
 }
 export interface UserLogin {
   email: string;

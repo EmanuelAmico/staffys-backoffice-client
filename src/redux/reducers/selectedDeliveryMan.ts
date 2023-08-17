@@ -21,6 +21,7 @@ const initialState: Omit<User, "token"> = {
   pendingPackages: [],
   currentPackage: null,
   historyPackages: [],
+  urlpicture: "",
 };
 
 export const setSelectedDeliveryMan = createAsyncThunk(

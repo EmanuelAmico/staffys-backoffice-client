@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Image from "next/image";
 import PercentageCircle from "./PercentageCircle";
 import { RiForbidLine } from "react-icons/ri";
@@ -72,6 +72,10 @@ const PackageTransportCard: FC<PackageTransportCardProps> = ({
     }
   })();
 
+  const [srcProfileImage, setSrcProfileImage] = useState(profileImage);
+  useEffect(() => {
+    setSrcProfileImage(profileImage);
+  }, [profileImage]);
   return (
     <div className={`flex items-center gap-4 ${className || ""}`}>
       {disabled ? (
@@ -93,7 +97,8 @@ const PackageTransportCard: FC<PackageTransportCardProps> = ({
         </p>
       </div>
       <Image
-        src={profileImage}
+        onError={() => setSrcProfileImage("/images/userIcon.jpg")}
+        src={srcProfileImage}
         width={62}
         height={62}
         alt="Profile"

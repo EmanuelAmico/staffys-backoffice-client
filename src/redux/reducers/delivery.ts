@@ -1,4 +1,8 @@
-import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  createReducer,
+  createAsyncThunk,
+  createAction,
+} from "@reduxjs/toolkit";
 import { UserService } from "@/services/user.service";
 import { initialStateDelivery } from "@/types/user.types";
 import { resetStore } from "./user";
@@ -6,6 +10,10 @@ import { resetStore } from "./user";
 const initialState: initialStateDelivery = {
   deliveryPeople: [],
 };
+
+export const setDeliveryPeople = createAction<initialStateDelivery>(
+  "SET_DELIVERY_PEOPLE"
+);
 
 export const getDeliveryPeople = createAsyncThunk(
   "DELIVERY/PEOPLE",
@@ -22,6 +30,9 @@ const deliveryReducer = createReducer(initialState, (builder) => {
       return initialState;
     })
     .addCase(getDeliveryPeople.fulfilled, (_state, action) => {
+      return action.payload;
+    })
+    .addCase(setDeliveryPeople, (_state, action) => {
       return action.payload;
     });
 });

@@ -38,7 +38,7 @@ const Home = () => {
   return (
     <Layout className="gap-2">
       <ProfileInfo
-        profileImg={"/svg/userProfilePicture.svg"}
+        profileImg={user._id}
         name={user.name}
         module="Gestionar Pedidos"
         className="pt-4"
@@ -55,10 +55,14 @@ const Home = () => {
           )}
           title="Repartidores"
           description={`${selectedHistory.activeUsers.length}/${deliveryPeople.length} activos`}
-          images={[
-            "/svg/santiagoProfilePicture.svg",
-            "/svg/lucianaProfilePicture.svg",
-          ]}
+          images={
+            selectedHistory?.activeUsers?.length > 1
+              ? [
+                  selectedHistory.activeUsers[0]?._id,
+                  selectedHistory.activeUsers[1]?._id,
+                ]
+              : ["", ""]
+          }
           buttonText="Ver Repartidores"
           pathButton="/delivery/people"
         />
